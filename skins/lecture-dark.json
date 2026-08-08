@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "name": "lecture-dark",
+    "label": "강의 다크",
+    "provenance": "<개발 원본 전용 경로> 덱 룩(#0c0e13 다크, Pretendard) 토큰화",
+    "derivation": "손저작 deck-stage.js 덱의 색·타이포를 렌더러 어휘로 옮김. _덱-파이프라인-런북.md §4 Phase1.",
+    "self_contained": true,
+    "note": "self-contained 스킨 = 어떤 base(house_a/house_b)와도 캐스케이드 합성 가능. packs/lecture 신설 전까지 --pack house_a --skins lecture-dark 로 사용. provenance는 기록용(지워도 렌더 무변) — 어떤 코드도 _meta를 읽지 않는다(2026-07-08 실측)."
+  },
+  "colors": {
+    "navy": "0C0E13",
+    "black": "0C0E13",
+    "white": "F2F4F8",
+    "orange": "FF8A3D",
+    "orange_bright": "FFA25C",
+    "orange_deep": "E8642A",
+    "blue2": "5AA7D6",
+    "yellow": "F5C451",
+    "red": "FF5C5C",
+    "purple": "9B6DFF",
+    "gray_bg": "161A22",
+    "gray_line": "2A303C",
+    "gray_text": "AAB2C0",
+    "section_cover": "0C0E13"
+  },
+  "fonts": {
+    "family": "Pretendard",
+    "sizes": {
+      "title": 54,
+      "section": 32,
+      "body": 16,
+      "label": 14,
+      "small": 12,
+      "caption": 10,
+      "footer": 10
+    }
+  }
+}

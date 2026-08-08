@@ -1,0 +1,23 @@
+# hun_proposal — 런타임 의존성 (공개 배포판)
+#
+# 핵심(HTML 덱 생성·파이프라인)만으로도 start→go(3단계 와이어프레임까지)는 돕니다.
+# PPTX 파생·스크린샷 기반 디자인 점검은 선택 의존성입니다.
+
+# --- 핵심 ---
+python-pptx>=0.6.21      # PPTX 렌더러·프리미티브 (native PPTX 파생)
+lxml>=4.9                # python-pptx가 요구 (XML 조작)
+jsonschema>=4.0          # SlideModel 스키마 검증 (없으면 검증만 건너뜀)
+
+# --- 렌더 이미지/래스터 (stage9 이미지 슬롯) ---
+Pillow>=9.0              # 이미지 슬롯 처리 (app/render/image_slots)
+
+# --- 대시보드 나라장터 수집 ---
+requests>=2.28           # 공고 수집 (vendor/proposal_core/collector)
+beautifulsoup4>=4.11     # HTML 파싱
+
+# --- 선택: 스크린샷 기반 디자인 실측 (stage9 브라우저 점검·PPTX 이미지 모드) ---
+# 없으면 "unmeasured"로 graceful degrade — 3단계 데모엔 불필요.
+# 패키지만 깔면 부족하고 브라우저 바이너리도 받아야 합니다:
+#     python -m playwright install chromium
+# 안 받았으면 관련 검증은 FAILED가 아니라 skip으로 넘어갑니다.
+playwright>=1.30

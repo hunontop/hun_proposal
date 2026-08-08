@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "name": "today-ai",
+    "label": "오늘의AI (기본 강의 스킨)",
+    "provenance": "<개발 원본 전용 경로> 덱 룩(blue #1F5CFF 액센트, 크림/화이트 라이트 본문 + 니어블랙 섹션, Pretendard) 토큰화",
+    "derivation": "손저작 deck-stage.js 덱의 색·타이포를 렌더러 어휘로 옮김. core 팩용 강의 기본 스킨(강의 팩 대체).",
+    "self_contained": true,
+    "note": "라이트 본문(white=크림) + 다크 섹션(navy=니어블랙) + 블루 액센트. gray_bg를 라이트 블루틴트로 잡아 카드가 밝게(라벨 대비 확보). _meta는 렌더에 무영향(기록용)."
+  },
+  "colors": {
+    "navy": "0D0D0F",
+    "black": "0D0D0F",
+    "white": "F7F6F2",
+    "orange": "1F5CFF",
+    "orange_bright": "4B7BFF",
+    "orange_deep": "1442C8",
+    "blue2": "6E8FD6",
+    "yellow": "FFD166",
+    "red": "FF8F7C",
+    "purple": "9B6DFF",
+    "gray_bg": "EEF2FF",
+    "gray_line": "DDE3F0",
+    "gray_text": "5A6072",
+    "section_cover": "0D0D0F"
+  },
+  "fonts": {
+    "family": "Pretendard",
+    "sizes": {
+      "title": 54,
+      "section": 32,
+      "body": 16,
+      "label": 14,
+      "small": 12,
+      "caption": 10,
+      "footer": 10
+    }
+  }
+}

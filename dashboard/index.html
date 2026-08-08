@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>실공고 선별 대시보드</title>
+<style>
+  :root{
+    --navy:#0d1f3a; --navy-2:#16294a; --accent:#f26a21; --accent-2:#ffe2d2;
+    --go:#1f8a4c; --go-bg:#e6f4ec; --hold:#c08a00; --hold-bg:#fbf2da;
+    --skip:#9aa3ad; --skip-bg:#eef1f4; --line:#e2e7ee; --text:#1c2430; --muted:#6b7785;
+    --bg:#f5f7fa; --card:#ffffff; --danger:#c0392b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo",-apple-system,Segoe UI,Roboto,sans-serif;
+       background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+  header{background:var(--navy);color:#fff;padding:20px 28px;position:sticky;top:0;z-index:20;
+         box-shadow:0 2px 12px rgba(0,0,0,.18)}
+  header .bar{height:4px;background:var(--accent);margin:-20px -28px 14px;}
+  h1{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#aab6c6;font-size:12px;margin-top:3px}
+  .summary{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .chip{background:var(--navy-2);border:1px solid #2b3d5e;border-radius:999px;padding:5px 13px;font-size:12px;color:#cfd9e6}
+  .chip b{color:#fff;font-weight:700}
+  .chip.go b{color:#7fe0a6} .chip.hold b{color:#ffd684} .chip.skip b{color:#c2ccd6}
+  .viewTabs{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .viewTabs button{border:1px solid #2b3d5e;background:var(--navy-2);color:#cfd9e6;border-radius:8px;
+                   padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer}
+  .viewTabs button.active{background:#fff;color:var(--navy);border-color:#fff}
+  .wrap{max-width:1040px;margin:0 auto;padding:18px 20px 60px}
+  .viewPanel{display:none}
+  .viewPanel.active{display:block}
+  .secureNote{color:#5a5a5a;font-size:13px;line-height:1.55;background:#f5f6f8;border-left:3px solid #99a;padding:10px 13px;border-radius:6px;margin:0 0 14px}
+  details.secureOnly>summary{cursor:pointer;font-weight:600;color:#556;padding:9px 12px;background:#eef0f3;border-radius:6px;user-select:none}
+  details.secureOnly[open]>summary{margin-bottom:12px}
+  .searchbar{display:flex;gap:8px;align-items:center;margin:4px 0 10px;flex-wrap:wrap}
+  .searchbar input{flex:1;min-width:260px;border:1px solid var(--line);border-radius:9px;padding:11px 14px;
+                   font-size:14px;font-family:inherit}
+  .searchbar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-2)}
+  .searchbar button{background:var(--accent);color:#fff;border:0;border-radius:9px;padding:11px 20px;
+                    font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap}
+  .searchbar button:disabled{opacity:.6;cursor:wait}
+  .searchbar .hint{color:var(--muted);font-size:11.5px;flex-basis:100%}
+  .filters{display:flex;gap:6px;margin:6px 0 16px;flex-wrap:wrap}
+  .filters button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;
+                  font-size:13px;cursor:pointer;color:var(--muted)}
+  .filters button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px;
+        display:grid;grid-template-columns:84px 1fr auto;gap:14px;align-items:start;transition:box-shadow .15s}
+  .card:hover{box-shadow:0 4px 16px rgba(20,40,70,.08)}
+  .card.go{border-left:5px solid var(--go)} .card.hold{border-left:5px solid var(--hold)}
+  .card.skip{border-left:5px solid var(--skip);opacity:.72}
+  .dday{font-weight:800;font-size:13px;text-align:center;padding:8px 4px;border-radius:8px;background:#f0f3f7;color:var(--muted)}
+  .dday.urgent{background:#fdecea;color:var(--danger)}
+  .dday small{display:block;font-weight:500;font-size:10px;color:var(--muted);margin-top:3px}
+  .meta .name{font-size:15px;font-weight:700;line-height:1.4;margin-bottom:5px}
+  .meta .name a{color:var(--navy);text-decoration:none;border-bottom:1px solid transparent}
+  .meta .name a:hover{border-bottom-color:var(--accent)}
+  .meta .row{color:var(--muted);font-size:12.5px}
+  .meta .row b{color:var(--text);font-weight:600}
+  .meta .bidno{color:#9aa3ad;font-size:11px;margin-top:2px;font-family:ui-monospace,Consolas,monospace;
+               display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .copyBidBtn{border:1px solid var(--accent);background:#fff;color:#b64d15;border-radius:999px;
+              padding:1px 8px;font-family:inherit;font-size:10.5px;font-weight:700;cursor:pointer}
+  .copyBidBtn:hover{background:var(--accent);color:#fff}
+  .bidHint{color:var(--muted);font-size:10px;font-family:inherit}
+  .copyBidMsg{font-size:10.5px;color:var(--go);font-family:inherit}
+  .pipelineStatus{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:6px}
+  .statusTag{font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 8px;background:#edf2f8;color:#526274}
+  .statusTag.done{background:var(--go-bg);color:var(--go)}
+  .statusTag a{color:inherit;text-decoration:none}
+  .openFolderBtn{border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:999px;
+                 padding:2px 8px;font-family:inherit;font-size:10.5px;font-weight:700;cursor:pointer}
+  .openFolderBtn:hover{background:var(--navy);color:#fff}
+  .openFolderBtn:disabled{opacity:.55;cursor:wait}
+  .folderMsg{font-size:11px;color:var(--go)}
+  .runStatus{width:100%;margin-top:6px;font-size:11.5px;font-weight:700;color:var(--navy)}
+  .humanCheckpoint{width:100%;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .humanBadge{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;background:var(--hold-bg);color:#7a5b00}
+  .ackBtn{border:1px solid var(--go);background:#fff;color:var(--go);border-radius:999px;
+          padding:3px 9px;font-family:inherit;font-size:10.5px;font-weight:700;cursor:pointer}
+  .ackBtn.skip{border-color:var(--muted);color:var(--muted)}
+  .ackBtn:disabled{opacity:.55;cursor:wait}
+  .ackMsg{font-size:11px;color:var(--go)}
+  .workOrder{width:100%;margin-top:4px;font-size:10.5px;color:#526274;line-height:1.6;
+             border-left:3px solid var(--hold-bg);padding-left:8px}
+  .handoff{width:100%;margin-top:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .handoffLbl{font-size:10.5px;font-weight:700;color:#526274}
+  .cliCode{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;background:#0c0e13;color:#e6edf3;
+           border-radius:6px;padding:3px 7px;overflow-x:auto;max-width:100%;white-space:nowrap}
+  .copyCli{border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:999px;
+           padding:2px 8px;font-family:inherit;font-size:10.5px;font-weight:700;cursor:pointer}
+  .copyCli:hover{background:var(--navy);color:#fff}
+  .cliMsg{font-size:11px;color:var(--go)}
+  .folderMsg.error{color:var(--danger)}
+  .memo{margin-top:9px;width:100%;border:1px solid var(--line);border-radius:8px;padding:7px 10px;
+        font-size:12.5px;font-family:inherit;resize:vertical;min-height:34px}
+  .memo:focus{outline:none;border-color:var(--accent)}
+  .actions{display:flex;flex-direction:column;gap:7px;align-items:stretch;min-width:128px}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{flex:1;border:0;background:#fff;padding:8px 0;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--muted)}
+  .seg button+button{border-left:1px solid var(--line)}
+  .seg button.go.on{background:var(--go-bg);color:var(--go)}
+  .seg button.hold.on{background:var(--hold-bg);color:var(--hold)}
+  .seg button.skip.on{background:var(--skip-bg);color:#5f6b78}
+  .analyzeBtn{border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;
+              padding:7px 0;font-size:12.5px;font-weight:600;cursor:pointer}
+  .analyzeBtn:hover{background:var(--navy);color:#fff}
+  .reviewToggle{border:1px solid var(--go);background:#fff;color:var(--go);border-radius:8px;
+                padding:7px 9px;font-size:12.5px;font-weight:700;cursor:pointer}
+  .reviewToggle.on{background:var(--go);color:#fff}
+  .saved{font-size:11px;color:var(--go);text-align:right;min-height:14px;opacity:0;transition:opacity .2s}
+  .saved.show{opacity:1}
+  .empty{text-align:center;color:var(--muted);padding:50px}
+  /* 분석 모달 */
+  .overlay{position:fixed;inset:0;background:rgba(13,31,58,.55);display:none;z-index:50;
+           align-items:flex-start;justify-content:center;padding:34px 16px;overflow:auto}
+  .overlay.show{display:flex}
+  .modal{background:#fff;border-radius:14px;max-width:860px;width:100%;box-shadow:0 18px 60px rgba(0,0,0,.3)}
+  .modal__hd{position:sticky;top:0;background:var(--navy);color:#fff;padding:16px 22px;border-radius:14px 14px 0 0;
+             display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .modal__hd h3{margin:0;font-size:16px;font-weight:700;line-height:1.4}
+  .modal__hd .x{background:transparent;border:0;color:#cbd6e6;font-size:24px;cursor:pointer;line-height:1}
+  .modal__bd{padding:20px 24px}
+  .stage{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 9px;margin-right:6px}
+  .stage.s2{background:#e9f3ff;color:#1c63b0} .stage.s3{background:#fff0e6;color:#b85a18}
+  .factgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px 22px;margin:12px 0 8px;font-size:12.5px}
+  .factgrid .f{display:flex;gap:8px;border-bottom:1px dotted var(--line);padding:4px 0}
+  .factgrid .f .k{color:var(--muted);min-width:120px}
+  .factgrid .f .v{font-weight:600}
+  .mani{font-size:12px;color:var(--muted);background:var(--bg);border-radius:8px;padding:9px 12px;margin:8px 0}
+  .card-md{border-top:2px solid var(--line);margin-top:14px;padding-top:14px;font-size:13.5px;line-height:1.6}
+  .card-md h1{font-size:18px;margin:.4em 0} .card-md h2{font-size:15px;margin:1em 0 .4em;color:var(--navy)}
+  .card-md table{border-collapse:collapse;width:100%;margin:.5em 0;font-size:12.5px}
+  .card-md th,.card-md td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+  .card-md th{background:var(--bg)}
+  .card-md blockquote{color:var(--muted);border-left:3px solid var(--accent);margin:.4em 0;padding:.2em 0 .2em 12px}
+  .pending{background:#fff8e6;border:1px solid #f0dca0;border-radius:8px;padding:12px 14px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+  .pending code{background:#fff;border:1px solid #e7d9ab;border-radius:4px;padding:1px 5px}
+  .promptbox{margin-top:14px;border:1px solid var(--line);border-radius:9px;padding:8px 12px}
+  .promptbox summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--navy)}
+  .prow{display:flex;align-items:center;gap:10px;margin:8px 0}
+  .copybtn,.savebtn{border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:7px;
+                    padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer}
+  .copybtn{background:#fff;color:var(--navy)}
+  .savebtn{background:var(--accent);border-color:var(--accent)}
+  .copymsg{font-size:12px;font-weight:600}
+  .promptText{width:100%;height:160px;font-family:ui-monospace,Consolas,monospace;font-size:11px;
+              border:1px solid var(--line);border-radius:7px;padding:9px;resize:vertical;background:var(--bg)}
+  .cockpit{display:grid;gap:14px}
+  .directionPanel,.promptCard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .directionPanel label,.promptCard h2{display:block;margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+  .directionInput{width:100%;min-height:110px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;
+                  font-family:inherit;font-size:13px;resize:vertical}
+  .directionInput:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-2)}
+  .promptCard{display:grid;gap:10px}
+  .promptCard h2{font-size:14px}
+  .promptCard .promptText{height:190px;font-size:12px;line-height:1.45;background:#fbfcfe}
+  .pastebox{margin-top:16px;border-top:2px solid var(--line);padding-top:14px}
+  .plabel{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:7px}
+  .cardInput{width:100%;height:130px;font-family:ui-monospace,Consolas,monospace;font-size:12px;
+             border:1px solid var(--line);border-radius:7px;padding:9px;resize:vertical}
+  .cardInput:focus,.promptText:focus{outline:none;border-color:var(--accent)}
+  .divPanel{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+  .divHint{font-size:11.5px;color:var(--muted);margin:4px 0}
+  .divSlides{width:110px;font-family:ui-monospace,Consolas,monospace;font-size:12px;
+    padding:6px 8px;border:1px solid var(--line);border-radius:7px}
+  footer{max-width:1040px;margin:0 auto;padding:0 20px 40px;color:var(--muted);font-size:11.5px}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar"></div>
+  <h1>실공고 선별 대시보드</h1>
+  <div class="sub" id="sub">불러오는 중…</div>
+  <div class="summary" id="summary"></div>
+  <div class="viewTabs" id="viewTabs" role="tablist" aria-label="대시보드 보기">
+    <button type="button" class="active" data-view="bids" role="tab" aria-selected="true" aria-controls="bidsView">공고</button>
+    <button type="button" data-view="cockpit" role="tab" aria-selected="false" aria-controls="cockpitView">콕핏</button>
+  </div>
+</header>
+<div class="wrap">
+  <div id="bidsView" class="viewPanel active" role="tabpanel">
+    <div class="searchbar">
+      <input id="q" type="text" placeholder="검색어 입력 — 예: AI 플랫폼  ·  AI AND 구축  ·  빅데이터 OR 클라우드"
+             autocomplete="off">
+      <button id="searchBtn">공고 검색</button>
+      <span class="hint">공백/AND=둘 다 포함 · OR=둘 중 하나</span>
+    </div>
+    <div class="filters" id="filters">
+      <button data-f="all" class="active">전체</button>
+      <button data-f="">미정</button>
+      <button data-f="go">Go</button>
+      <button data-f="hold">Hold</button>
+      <button data-f="skip">Skip</button>
+    </div>
+    <div id="list"></div>
+    <div class="empty" id="empty" style="display:none">해당 항목이 없습니다.</div>
+  </div>
+  <section id="cockpitView" class="viewPanel cockpit" role="tabpanel" hidden>
+    <p class="secureNote">이 도구들은 <b>외부 LLM(secure) 모드</b> 전용입니다 — 프롬프트를 복사해 외부 LLM에 붙여넣는 수동 방식. Claude Code 등 <b>자동화 정주행에서는 사용하지 않으므로 기본 숨김</b>입니다. (안쪽 프롬프트 문구는 옛 공정 기준이라 secure 모드 재사용 시 현행화 필요.)</p>
+    <details class="secureOnly">
+      <summary>외부 LLM(secure) 모드 도구 열기 — 복사·붙여넣기 부트 프롬프트</summary>
+    <div class="directionPanel">
+      <label for="targetInput">대상 공고 (bid_no 또는 공고명; 비우면 Go 결정/최신 digest에서 자동 선택)</label>
+      <textarea id="targetInput" class="directionInput" placeholder="예: R26BK01573755-000  또는  AI 폐어구 탐지 표준화 연구 용역"></textarea>
+    </div>
+    <div class="directionPanel">
+      <label for="directionInput">디렉션</label>
+      <textarea id="directionInput" class="directionInput" placeholder="Phase A storyline에 반영할 방향을 입력하세요."></textarea>
+    </div>
+    <article class="promptCard">
+      <h2>Phase A 부트(1~5, public 수집→storyline)</h2>
+      <div class="prow"><button type="button" id="copyCockpitA" class="copybtn">복사</button>
+        <span id="cockpitMsgA" class="copymsg"></span></div>
+      <textarea id="cockpitPromptA" class="promptText" readonly></textarea>
+    </article>
+    <article class="promptCard">
+      <h2>Phase B 부트(6~8, 새 세션)</h2>
+      <div class="prow"><button type="button" id="copyCockpitB" class="copybtn">복사</button>
+        <span id="cockpitMsgB" class="copymsg"></span></div>
+      <textarea id="cockpitPromptB" class="promptText" readonly></textarea>
+    </article>
+    </details>
+  </section>
+</div>
+<footer>
+  Go/Hold/Skip과 메모는 <code>dashboard/feedback.json</code>에 저장되는 <b>모니터링 메모</b>입니다(실행 트리거 아님)
+  · 착수는 공고 고유번호를 복사해 Claude 채팅에 붙여넣어 판단받으세요.
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal__hd">
+      <h3 id="mTitle">분석</h3>
+      <button class="x" id="mClose">×</button>
+    </div>
+    <div class="modal__bd" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+let BIDS=[], FB={}, FILTER="all";
+const EMPTY_DIRECTION="(디렉션을 입력하세요.)";
+const EMPTY_TARGET="(미지정 — 최신 digest의 decision=go 공고를 자동 선택)";
+// 프롬프트는 저장소 루트 기준 상대경로로만 말한다 — 기계 절대경로를 박으면 다른 사람의
+// 사본(공개 배포판 포함)에서 곧바로 거짓말이 된다.
+const COCKPIT_PROMPT_A=`이 저장소 루트에서 작업한다. 먼저 README.md → MANUAL.md를 읽어 시스템을 파악하라.
+[Phase A] 아래 '대상 공고'의 나라장터 public 공고를 대상으로 1~5단계 수행: 수집/적재 확인(stage1)→분석(2)→전략(3)→storyline(5).
+- '대상 공고'가 지정돼 있으면 그 공고로 바로 진행한다(bid_no 우선, 없으면 공고명으로 매칭).
+- 비어 있으면 최신 digest(proposal_system/workspace/digest/ 최신 .md)와 dashboard/feedback.json의 decision=go 항목을 읽어 대상을 고르고, 후보가 여럿이면 마감 임박순 1건으로 시작한다. 사용자에게 되묻지 말고 진행하되, 무엇을 골랐는지 먼저 한 줄로 보고하라.
+public 산출 파일을 완성하고, 아래 '디렉션'을 storyline에 반영하라.
+산출 storyline 경로를 보고하라(Phase B 입력).
+--- 대상 공고 ---
+{{TARGET}}
+--- 디렉션 ---
+{{DIRECTION}}`;
+const COCKPIT_PROMPT_B=`이 저장소 루트에서 작업한다. 먼저 README.md → MANUAL.md를 읽어라.
+[Phase B] Phase A 산출 storyline을 받아 stage6/7/8 → app/ingest+bind → 정본 SlideModel → app/render → public HTML.
+커맨드: python proposal_system/scripts/proposal_pipeline.py render --storyline <STORYLINE_PATH> [--pptx]  (기본 팩=core 중립·무채; 하우스 팩은 --pack 명시 시만, 결정 11·12)
+※ 작업마다 새 세션(컨텍스트/토큰 격리). public 출력만.`;
+
+async function api(path, opts){ const r=await fetch(path,opts); return r.json(); }
+
+function decisionOf(id){ return (FB[id]&&FB[id].decision)||""; }
+function memoOf(id){ return (FB[id]&&FB[id].memo)||""; }
+function reviewedOf(id){ return !!(FB[id]&&FB[id].reviewed); }
+
+function ddayClass(d){ return /D-?[012](\D|$)|마감/.test(d)?"urgent":""; }
+
+function renderSummary(){
+  const c={go:0,hold:0,skip:0,none:0,reviewed:0};
+  BIDS.forEach(b=>{ const d=decisionOf(b.id); if(d==="go")c.go++;else if(d==="hold")c.hold++;else if(d==="skip")c.skip++;else c.none++;
+    if(reviewedOf(b.id))c.reviewed++; });
+  document.getElementById("summary").innerHTML=
+    `<span class="chip go">Go <b>${c.go}</b></span>`+
+    `<span class="chip hold">Hold <b>${c.hold}</b></span>`+
+    `<span class="chip skip">Skip <b>${c.skip}</b></span>`+
+    `<span class="chip go">검토완료 <b>${c.reviewed}</b></span>`+
+    `<span class="chip">미정 <b>${c.none}</b></span>`+
+    `<span class="chip">전체 <b>${BIDS.length}</b></span>`;
+}
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function card(b){
+  const d=decisionOf(b.id);
+  const ddayParts=b.dday.replace("🔴","").trim();
+  const nameHtml = b.detail_url
+    ? `<a href="${esc(b.detail_url)}" target="_blank" rel="noopener">${esc(b.bid_name)}</a>`
+    : esc(b.bid_name);
+  const el=document.createElement("div");
+  el.className="card"+(d?" "+d:"");
+  el.innerHTML=`
+    <div class="dday ${ddayClass(b.dday)}">${esc(ddayParts)||"-"}<small>${esc((b.close_dt||"").slice(5,16))||"미정"}</small></div>
+    <div class="meta">
+      <div class="name">${nameHtml}</div>
+      <div class="row"><b>${esc(b.inst_name)}</b> · 사업금액 ${esc(b.budget_label)}</div>
+      <div class="bidno">${esc(b.bid_no)}
+        <button type="button" class="copyBidBtn" title="복사해서 Claude 채팅창에 붙여넣으면 착수 여부를 판단해드립니다">📋 번호 복사</button>
+        <span class="copyBidMsg" role="status" aria-live="polite"></span>
+        <span class="bidHint">→ Claude 채팅에 붙여넣으면 착수 판단으로 이어져요</span>
+      </div>
+      <div class="pipelineStatus">
+        <span class="statusTag ${b.has_card?"done":""}">${b.has_card?"분석됨":"분석 전"}</span>
+        <span class="statusTag ${b.has_deck?"done":""}">${b.has_deck
+          ?`<a href="${esc(b.deck_url)}" target="_blank" rel="noopener">생성됨 · 덱 열기</a>`:"생성 전"}</span>
+        ${b.has_deck?`<button type="button" class="openFolderBtn">📂 출력 폴더</button>
+          <span class="folderMsg" role="status" aria-live="polite"></span>`:""}
+        ${b.stage_label?`<div class="runStatus">🧭 ${esc(b.stage_label)}</div>`:""}
+        ${b.human_gate?`<div class="humanCheckpoint">
+          <span class="humanBadge">검토 대기: ${esc(b.human_label||b.human_gate)}</span>
+          <button type="button" class="ackBtn" data-decision="confirm">${b.human_gate==="imagedeck_ack"?"바로 정독·채택":"검토 완료"}</button>
+          ${b.human_gate==="imagedeck_ack"?`<button type="button" class="imgdReviewBtn">🔍 Claude 검수 요청</button>`:""}
+          ${b.human_skippable?`<button type="button" class="ackBtn skip" data-decision="skip">건너뛰기</button>`:""}
+          <span class="ackMsg" role="status" aria-live="polite"></span>
+        </div>`:""}
+        ${b.image_workorder?`<div class="workOrder">
+          ${b.image_workorder.user_asset.length?`<div>📎 실자산 제공 필요: ${b.image_workorder.user_asset.map(esc).join(", ")}</div>`:""}
+          ${b.image_workorder.client_asset.length?`<div>🏛 발주처 자산: ${b.image_workorder.client_asset.map(esc).join(", ")}</div>`:""}
+          ${b.image_workorder.web_sample.length?`<div>🔎 웹 샘플 검색: ${b.image_workorder.web_sample.map(esc).join(", ")}</div>`:""}
+          ${b.image_workorder.codex_gen.length?`<div>🎨 생성 큐(Codex): ${b.image_workorder.codex_gen.map(esc).join(", ")}</div>`:""}
+          ${b.image_workorder.none?`<div>— 이미지 생략(사유 기록): ${b.image_workorder.none}장</div>`:""}
+        </div>`:""}
+        ${b.next_cli?`<div class="handoff"><span class="handoffLbl">터미널에서 이어가기</span>
+          <code class="cliCode">${esc(b.next_cli)}</code>
+          <button type="button" class="copyCli">복사</button>
+          <span class="cliMsg" role="status" aria-live="polite"></span></div>`:""}
+      </div>
+      <textarea class="memo" placeholder="메모 (선정 사유·확인사항)…">${esc(memoOf(b.id))}</textarea>
+    </div>
+    <div class="actions">
+      <div class="seg" title="모니터링 메모입니다 — 실행을 일으키지 않습니다. 착수는 위 번호 복사 버튼으로.">
+        <button class="go ${d==="go"?"on":""}" data-d="go">Go</button>
+        <button class="hold ${d==="hold"?"on":""}" data-d="hold">Hold</button>
+        <button class="skip ${d==="skip"?"on":""}" data-d="skip">Skip</button>
+      </div>
+      <button class="analyzeBtn">📋 분석</button>
+      <div class="saved">저장됨 ✓</div>
+    </div>`;
+  el.querySelector(".analyzeBtn").onclick=()=>analyze(b);
+  const folderBtn=el.querySelector(".openFolderBtn");
+  if(folderBtn){
+    folderBtn.onclick=()=>openOutputFolder(b.id,folderBtn,el.querySelector(".folderMsg"));
+  }
+  const copyBidBtn=el.querySelector(".copyBidBtn");
+  if(copyBidBtn){
+    copyBidBtn.onclick=async()=>{
+      const m=el.querySelector(".copyBidMsg");
+      try{ await navigator.clipboard.writeText(b.bid_no||""); if(m){m.textContent="복사됨 ✓ — Claude 채팅에 붙여넣으세요";} }
+      catch(e){ if(m){m.textContent="복사 실패 — 직접 선택 복사";} }
+    };
+  }
+  const cliBtn=el.querySelector(".copyCli");
+  if(cliBtn){
+    cliBtn.onclick=async()=>{
+      const m=el.querySelector(".cliMsg");
+      try{ await navigator.clipboard.writeText(b.next_cli||""); if(m){m.textContent="복사됨 ✓";} }
+      catch(e){ if(m){m.textContent="복사 실패 — 직접 선택 복사";} }
+    };
+  }
+  const ackBox=el.querySelector(".humanCheckpoint");
+  if(ackBox){
+    ackBox.querySelectorAll(".ackBtn").forEach(btn=>{
+      btn.onclick=async()=>{
+        const m=ackBox.querySelector(".ackMsg");
+        ackBox.querySelectorAll(".ackBtn").forEach(x=>x.disabled=true);
+        const res=await api("/api/ack",{method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({run_id:b.run_name,gate:b.human_gate,decision:btn.dataset.decision})});
+        if(res.error){
+          m.textContent=res.error;
+          ackBox.querySelectorAll(".ackBtn").forEach(x=>x.disabled=false);
+          return;
+        }
+        const data=await api("/api/bids");
+        BIDS=data.bids||[]; FB=data.feedback||FB; setSub(data.meta); rerender();
+      };
+    });
+    const revBtn=ackBox.querySelector(".imgdReviewBtn");
+    if(revBtn){
+      revBtn.onclick=async()=>{
+        const m=ackBox.querySelector(".ackMsg");
+        revBtn.disabled=true;
+        const res=await api("/api/imagedeck-review",{method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({run_id:b.run_name})});
+        revBtn.disabled=false;
+        m.textContent=res.error?res.error
+          :`검수표 생성됨(${res.slides}장): imagedeck_review.md — 세션 Claude가 이미지 대조 후 채웁니다`;
+      };
+    }
+  }
+  const reviewBtn=document.createElement("button");
+  reviewBtn.className="reviewToggle"+(reviewedOf(b.id)?" on":"");
+  reviewBtn.textContent=reviewedOf(b.id)?"✓ 검토완료":"검토완료";
+  reviewBtn.setAttribute("aria-pressed",reviewedOf(b.id)?"true":"false");
+  reviewBtn.onclick=async()=>{
+    const res=await api("/api/feedback",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({bid_no:b.id,reviewed:!reviewedOf(b.id)})});
+    if(res.error)return;
+    FB[b.id]=res.entry;
+    reviewBtn.classList.toggle("on",reviewedOf(b.id));
+    reviewBtn.textContent=reviewedOf(b.id)?"✓ 검토완료":"검토완료";
+    reviewBtn.setAttribute("aria-pressed",reviewedOf(b.id)?"true":"false");
+    renderSummary();
+  };
+  el.querySelector(".actions").insertBefore(reviewBtn,el.querySelector(".saved"));
+  const saved=el.querySelector(".saved");
+  function flash(){ saved.classList.add("show"); setTimeout(()=>saved.classList.remove("show"),1200); }
+  el.querySelectorAll(".seg button").forEach(btn=>{
+    btn.onclick=async()=>{
+      const newD = decisionOf(b.id)===btn.dataset.d ? "" : btn.dataset.d; // 토글
+      const res=await api("/api/feedback",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({bid_no:b.id,decision:newD})});
+      FB[b.id]=res.entry; flash(); rerender();
+    };
+  });
+  const memo=el.querySelector(".memo");
+  memo.onchange=async()=>{
+    const res=await api("/api/feedback",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({bid_no:b.id,memo:memo.value})});
+    FB[b.id]=res.entry; flash(); renderSummary();
+  };
+  return el;
+}
+
+function rerender(){
+  const list=document.getElementById("list"); list.innerHTML="";
+  const rows=BIDS.filter(b=> FILTER==="all" ? true : decisionOf(b.id)===FILTER);
+  rows.forEach(b=>list.appendChild(card(b)));
+  document.getElementById("empty").style.display=rows.length?"none":"block";
+  renderSummary();
+}
+
+document.getElementById("filters").onclick=e=>{
+  if(e.target.tagName!=="BUTTON")return;
+  FILTER=e.target.dataset.f;
+  [...e.currentTarget.children].forEach(b=>b.classList.toggle("active",b===e.target));
+  rerender();
+};
+
+function renderCockpitPrompts(){
+  const target=document.getElementById("targetInput").value.trim() || EMPTY_TARGET;
+  const direction=document.getElementById("directionInput").value.trim() || EMPTY_DIRECTION;
+  document.getElementById("cockpitPromptA").value=
+    COCKPIT_PROMPT_A.replace("{{TARGET}}",target).replace("{{DIRECTION}}",direction);
+  document.getElementById("cockpitPromptB").value=COCKPIT_PROMPT_B;
+}
+
+async function copyFromTextarea(textareaId,msgId){
+  const t=document.getElementById(textareaId);
+  try{ await navigator.clipboard.writeText(t.value); msg(msgId,"복사됨 ✓"); }
+  catch(e){ t.focus(); t.select(); msg(msgId,"Ctrl+C 로 복사"); }
+}
+
+document.getElementById("viewTabs").onclick=e=>{
+  if(e.target.tagName!=="BUTTON")return;
+  const view=e.target.dataset.view;
+  [...e.currentTarget.children].forEach(btn=>{
+    const on=btn===e.target;
+    btn.classList.toggle("active",on);
+    btn.setAttribute("aria-selected",on?"true":"false");
+  });
+  document.getElementById("bidsView").classList.toggle("active",view==="bids");
+  document.getElementById("bidsView").hidden=view!=="bids";
+  document.getElementById("cockpitView").classList.toggle("active",view==="cockpit");
+  document.getElementById("cockpitView").hidden=view!=="cockpit";
+  if(view==="cockpit"){ renderCockpitPrompts(); }
+};
+
+document.getElementById("targetInput").addEventListener("input",renderCockpitPrompts);
+document.getElementById("directionInput").addEventListener("input",renderCockpitPrompts);
+document.getElementById("copyCockpitA").onclick=()=>{ renderCockpitPrompts(); copyFromTextarea("cockpitPromptA","cockpitMsgA"); };
+document.getElementById("copyCockpitB").onclick=()=>copyFromTextarea("cockpitPromptB","cockpitMsgB");
+renderCockpitPrompts();
+
+// ── 컴팩트 markdown 렌더러 (분석카드용: 헤딩/표/리스트/굵게/인용) ──
+function md2html(md){
+  const lines=(md||"").split(/\r?\n/); let html="",i=0;
+  const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+  while(i<lines.length){
+    let ln=lines[i];
+    if(/^\s*\|.*\|\s*$/.test(ln)){            // 표
+      const tbl=[]; while(i<lines.length&&/^\s*\|.*\|\s*$/.test(lines[i])){tbl.push(lines[i]);i++;}
+      const rows=tbl.filter(r=>!/^\s*\|[\s:|-]+\|\s*$/.test(r))
+        .map(r=>r.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim()));
+      if(rows.length){ html+="<table><thead><tr>"+rows[0].map(c=>`<th>${inline(c)}</th>`).join("")+"</tr></thead><tbody>";
+        for(let j=1;j<rows.length;j++) html+="<tr>"+rows[j].map(c=>`<td>${inline(c)}</td>`).join("")+"</tr>";
+        html+="</tbody></table>"; }
+      continue;
+    }
+    if(/^#{1,3}\s/.test(ln)){const lv=ln.match(/^#+/)[0].length;html+=`<h${lv}>${inline(ln.replace(/^#+\s/,""))}</h${lv}>`;i++;continue;}
+    if(/^>\s?/.test(ln)){html+=`<blockquote>${inline(ln.replace(/^>\s?/,""))}</blockquote>`;i++;continue;}
+    if(/^\s*[-*]\s/.test(ln)){html+="<ul>";while(i<lines.length&&/^\s*[-*]\s/.test(lines[i])){html+=`<li>${inline(lines[i].replace(/^\s*[-*]\s/,""))}</li>`;i++;}html+="</ul>";continue;}
+    if(ln.trim()==="") {i++;continue;}
+    html+=`<p>${inline(ln)}</p>`;i++;
+  }
+  return html;
+}
+
+const overlay=document.getElementById("overlay");
+document.getElementById("mClose").onclick=()=>overlay.classList.remove("show");
+overlay.onclick=e=>{ if(e.target===overlay) overlay.classList.remove("show"); };
+
+async function analyze(b){
+  overlay.classList.add("show");
+  document.getElementById("mTitle").textContent=b.bid_name.slice(0,60);
+  const body=document.getElementById("mBody");
+  body.innerHTML=`<p style="color:var(--muted)">📥 첨부 다운로드·파싱(stage 2) → 분석 프롬프트(stage 3) 생성 중… <br><small>첨부가 많으면 수십 초 걸릴 수 있습니다.</small></p>`;
+  let r;
+  try{ r=await api("/api/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bid_no:b.id})}); }
+  catch(e){ body.innerHTML=`<p style="color:var(--danger)">분석 오류: ${esc(""+e)}</p>`; return; }
+  if(r.error){ body.innerHTML=`<p style="color:var(--danger)">${esc(r.error)}</p>`; return; }
+  const facts=(r.facts||[]).map(f=>`<div class="f"><span class="k">${esc(f.k)}</span><span class="v">${esc(""+f.v)}</span></div>`).join("");
+  const mani=(r.manifest&&r.manifest.length)?r.manifest.map(esc).join(" · "):"(첨부 없음)";
+  const cardHtml = r.card_exists
+    ? `<div class="card-md">${md2html(r.card_md)}</div>`
+    : `<div class="pending">아직 분석카드가 없습니다. 아래 <b>① 프롬프트를 복사</b>해 LLM(Claude 등)에 넣고, 받은 카드를 <b>② 아래에 붙여넣어 저장</b>하세요.</div>`;
+  body.innerHTML=`
+    <div><span class="stage s2">stage 2 정규화</span><span class="stage s3">stage 3 판단</span>
+      <span style="color:var(--muted);font-size:12px">· 공고번호 ${esc(r.bid_no)} · 첨부 ${r.attachments}건</span></div>
+    <div class="factgrid">${facts}</div>
+    <div class="mani">📎 첨부: ${mani}</div>
+    <div id="cardBox">${cardHtml}</div>
+    <details class="promptbox" ${r.card_exists?"":"open"}>
+      <summary>① 분석 프롬프트 (LLM에 붙여넣기) · ${(r.prompt_chars||0).toLocaleString()}자</summary>
+      <div class="prow"><button id="copyPrompt" class="copybtn">📋 프롬프트 복사</button>
+        <span id="copyMsg" class="copymsg"></span></div>
+      <textarea id="promptText" class="promptText" readonly>${esc(r.prompt||"")}</textarea>
+    </details>
+    <div class="pastebox">
+      <div class="plabel">② LLM이 만든 분석카드(.md)를 붙여넣고 저장</div>
+      <textarea id="cardInput" class="cardInput" placeholder="# 📋 입찰 분석카드 — …  (LLM 출력 전체를 붙여넣으세요)">${r.card_exists?esc(r.card_md):""}</textarea>
+      <div class="prow"><button id="saveCard" class="savebtn">카드 저장 · 렌더</button>
+        <span id="saveMsg" class="copymsg"></span></div>
+    </div>`;
+
+  document.getElementById("copyPrompt").onclick=async()=>{
+    try{ await navigator.clipboard.writeText(r.prompt||""); msg("copyMsg","복사됨 ✓"); }
+    catch(e){ const t=document.getElementById("promptText"); t.focus(); t.select(); msg("copyMsg","Ctrl+C 로 복사"); }
+  };
+  document.getElementById("saveCard").onclick=async()=>{
+    const md=document.getElementById("cardInput").value.trim();
+    if(!md){ msg("saveMsg","붙여넣은 내용이 없습니다",true); return; }
+    const res=await api("/api/card",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({bid_no:r.bid_no,card_md:md})});
+    if(res.error){ msg("saveMsg",res.error,true); return; }
+    document.getElementById("cardBox").innerHTML=`<div class="card-md">${md2html(md)}</div>`;
+    msg("saveMsg","저장됨 ✓ ("+res.chars.toLocaleString()+"자)");
+  };
+}
+async function openOutputFolder(bidNo,button,output){
+  button.disabled=true;
+  if(output){ output.textContent="폴더 여는 중…"; output.classList.remove("error"); }
+  try{
+    const r=await api("/api/open-folder",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({bid_no:bidNo})});
+    if(r.error)throw new Error(r.error);
+    if(output)output.textContent="출력 폴더를 열었습니다.";
+  }catch(e){
+    if(output){ output.textContent="폴더 열기 실패: "+e.message; output.classList.add("error"); }
+  }finally{
+    button.disabled=false;
+  }
+}
+
+function msg(id,t,err){ const e=document.getElementById(id); if(!e)return;
+  e.textContent=t; e.style.color=err?"var(--danger)":"var(--go)";
+  clearTimeout(e._t); e._t=setTimeout(()=>e.textContent="",2500); }
+
+function setSub(meta){
+  const q=meta&&meta.query;
+  document.getElementById("sub").textContent= q
+    ? `검색 「${q}」 · ${BIDS.length}건 · 최근 ${meta.days||"?"}일 · 마감 임박순`
+    : `나라장터 수집 실공고 ${BIDS.length}건 · ${(BIDS[0]||{}).digest_date||""} 기준 · 마감 임박순`;
+}
+
+async function doSearch(){
+  const q=document.getElementById("q").value.trim();
+  if(!q) return;
+  const btn=document.getElementById("searchBtn");
+  const sub=document.getElementById("sub");
+  btn.disabled=true; const old=btn.textContent; btn.textContent="검색 중…";
+  sub.textContent=`「${q}」 나라장터 수집 중… (네트워크)`;
+  try{
+    const res=await api("/api/search",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({q})});
+    if(res.error){ sub.textContent="검색 실패: "+res.error; return; }
+    BIDS=res.bids||[]; FB=res.feedback||FB;
+    FILTER="all";
+    [...document.getElementById("filters").children].forEach(b=>b.classList.toggle("active",b.dataset.f==="all"));
+    setSub({query:res.query,days:res.days});
+    rerender();
+  }catch(e){ sub.textContent="검색 오류: "+e; }
+  finally{ btn.disabled=false; btn.textContent=old; }
+}
+
+document.getElementById("searchBtn").onclick=doSearch;
+document.getElementById("q").addEventListener("keydown",e=>{ if(e.key==="Enter") doSearch(); });
+
+(async()=>{
+  const data=await api("/api/bids");
+  BIDS=data.bids; FB=data.feedback||{};
+  setSub(data.meta);
+  rerender();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-07-14T19:57:53",
+  "counts": {
+    "skins": 3,
+    "guides": 3,
+    "registered": 0
+  },
+  "entries": [
+    {
+      "kind": "guide",
+      "id": "DESIGN_SYSTEM",
+      "source_path": "proposal_system/vendor/pj_pt/DESIGN_SYSTEM.md",
+      "exists": true,
+      "registered": false,
+      "self_contained": null,
+      "provenance": "",
+      "note": ""
+    },
+    {
+      "kind": "guide",
+      "id": "quartz_guide",
+      "source_path": "<개발 원본 전용 경로>",
+      "exists": true,
+      "registered": false,
+      "self_contained": null,
+      "provenance": "<개발 원본 전용 경로>",
+      "note": "examples_dir 있음"
+    },
+    {
+      "kind": "guide",
+      "id": "ppt_design_guide_경제형",
+      "source_path": "proposal_system/knowledge/design_guides/ppt_design_guide_경제형.md",
+      "exists": true,
+      "registered": false,
+      "self_contained": null,
+      "provenance": "",
+      "note": ""
+    },
+    {
+      "kind": "skin",
+      "id": "lecture-dark",
+      "source_path": "skins/lecture-dark.json",
+      "exists": true,
+      "registered": false,
+      "self_contained": true,
+      "provenance": "<개발 원본 전용 경로> 덱 룩(#0c0e13 다크, Pretendard) 토큰화",
+      "note": "손저작 deck-stage.js 덱의 색·타이포를 렌더러 어휘로 옮김. _덱-파이프라인-런북.md §4 Phase1."
+    },
+    {
+      "kind": "skin",
+      "id": "quartz",
+      "source_path": "skins/quartz.json",
+      "exists": true,
+      "registered": false,
+      "self_contained": true,
+      "provenance": "<개발 원본 전용 경로>",
+      "note": "app/skin_extract.py 결정론적 추출 + 색 역할 큐레이션(경제형.md 교차검증). Phase 1-B B3에서 house_a 1차 병합분을 독립 스킨으로 역분리."
+    },
+    {
+      "kind": "skin",
+      "id": "univ_sample",
+      "source_path": "skins/univ_sample.json",
+      "exists": true,
+      "registered": false,
+      "self_contained": false,
+      "provenance": "https://www.univ_sample.ac.kr/univ_sample/intro/vision02.do",
+      "note": "institution_research --apply (W26) — brand_tokens.colors.primary/accent → colors.navy/orange(htmlgen._base_css 네이비/오렌지 승격 규약)"
+    }
+  ]
+}

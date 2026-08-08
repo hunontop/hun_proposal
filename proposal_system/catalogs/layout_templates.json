@@ -1,0 +1,1141 @@
+{
+  "version": 1,
+  "note": "7단계 레이아웃 선택용 카탈로그. 레퍼런스 팩의 템플릿 카탈로그 방식처럼 use_when / avoid_when / required_inputs를 명시한다. Appends 40 legacy-pack templates with field_shapes from PHASE1A_field_contract.",
+  "templates": [
+    {
+      "id": "cover_cinematic",
+      "role": "cover",
+      "name": "시네마틱 표지",
+      "use_when": [
+        "제안 주제와 컨셉을 첫 장에서 강하게 각인해야 할 때",
+        "실제 현장/제품/상징 이미지가 있을 때"
+      ],
+      "avoid_when": [
+        "검토용 문서 표지",
+        "이미지 소재가 없고 텍스트만 있는 경우"
+      ],
+      "required_inputs": [
+        "project_title",
+        "concept_message",
+        "visual_subject"
+      ],
+      "layout": "풀블리드 이미지 또는 어두운 배경, 좌측/하단 큰 제목, 짧은 컨셉 문장, 작은 메타"
+    },
+    {
+      "id": "problem_questions",
+      "role": "problem_intro",
+      "name": "고민 제시 도입",
+      "use_when": [
+        "발주처의 고민을 질문 2~3개로 압축할 때",
+        "제안 전체가 이 질문의 답으로 전개될 때"
+      ],
+      "avoid_when": [
+        "단순 사업개요",
+        "근거 없이 위기감을 과장해야 하는 경우"
+      ],
+      "required_inputs": [
+        "core_question",
+        "sub_questions"
+      ],
+      "layout": "큰 질문 1개 + 보조 질문 카드 2~3개 + 하단 답변 예고"
+    },
+    {
+      "id": "executive_summary",
+      "role": "summary",
+      "name": "경영진 요약",
+      "use_when": [
+        "한 장에서 판단해야 할 핵심 결론과 근거를 동시에 보여줄 때"
+      ],
+      "avoid_when": [
+        "세부 실행계획이 본문인 장표",
+        "근거가 아직 부족한 단계"
+      ],
+      "required_inputs": [
+        "main_claim",
+        "supporting_points"
+      ],
+      "layout": "상단 결론 문장 + 3개 근거 카드 + 검토요망/리스크 표시"
+    },
+    {
+      "id": "data_interpretation",
+      "role": "data",
+      "name": "데이터 해석형",
+      "use_when": [
+        "숫자 자체보다 숫자의 의미를 말해야 할 때",
+        "차트와 해석 포인트가 함께 필요할 때"
+      ],
+      "avoid_when": [
+        "숫자가 없거나 검증되지 않은 경우",
+        "표 한 장으로 충분한 경우"
+      ],
+      "required_inputs": [
+        "metric",
+        "comparison",
+        "interpretation"
+      ],
+      "layout": "좌측 차트/숫자 + 우측 해석 2~3개 + 출처"
+    },
+    {
+      "id": "contrast_as_is_to_be",
+      "role": "contrast",
+      "name": "As-Is / To-Be 대비",
+      "use_when": [
+        "현재 문제와 목표 상태를 명확히 대비할 때",
+        "전환 논리가 핵심일 때"
+      ],
+      "avoid_when": [
+        "양쪽 기준이 다를 때",
+        "실행안이 3개 이상으로 나뉘는 경우"
+      ],
+      "required_inputs": [
+        "as_is",
+        "to_be",
+        "transition_message"
+      ],
+      "layout": "2열 대비 + 중앙 전환 화살표 + 하단 결론"
+    },
+    {
+      "id": "strategy_pillars",
+      "role": "strategy",
+      "name": "3대 전략 체계",
+      "use_when": [
+        "실행안을 2~4개 축으로 묶을 때",
+        "선택과 집중을 보여줄 때"
+      ],
+      "avoid_when": [
+        "전략 축이 서로 겹칠 때",
+        "단순 목록이면 충분한 경우"
+      ],
+      "required_inputs": [
+        "pillars",
+        "one_line_per_pillar"
+      ],
+      "layout": "전략 축 카드 3개 + 상위 컨셉 + 축별 대표 실행"
+    },
+    {
+      "id": "roadmap_gantt",
+      "role": "roadmap",
+      "name": "기간별 실행 로드맵",
+      "use_when": [
+        "분기/월/주 단위 일정과 병렬 업무가 있을 때"
+      ],
+      "avoid_when": [
+        "단순 순차 3단계",
+        "기간이 불명확한 실행안"
+      ],
+      "required_inputs": [
+        "time_units",
+        "workstreams",
+        "milestones"
+      ],
+      "layout": "시간축 + 업무트랙 + 의사결정/산출물 마커"
+    },
+    {
+      "id": "process_steps",
+      "role": "process",
+      "name": "단계형 프로세스",
+      "use_when": [
+        "순서가 중요한 3~5단계 실행을 설명할 때"
+      ],
+      "avoid_when": [
+        "병렬 업무가 많을 때",
+        "각 단계의 기간이 핵심일 때"
+      ],
+      "required_inputs": [
+        "steps",
+        "outputs"
+      ],
+      "layout": "번호 배지 + 단계 박스 + 단계별 산출물"
+    },
+    {
+      "id": "matrix_priority",
+      "role": "decision",
+      "name": "우선순위 매트릭스",
+      "use_when": [
+        "항목을 2개 축으로 판단하고 우선순위를 정할 때"
+      ],
+      "avoid_when": [
+        "축 정의가 모호할 때",
+        "항목 수가 4개 미만인 경우"
+      ],
+      "required_inputs": [
+        "x_axis",
+        "y_axis",
+        "items"
+      ],
+      "layout": "2x2 또는 3단계 밴드 + 강조 항목 1~3개"
+    },
+    {
+      "id": "comparison_table",
+      "role": "comparison",
+      "name": "옵션 비교표",
+      "use_when": [
+        "2~4개 선택지를 기준별로 비교할 때"
+      ],
+      "avoid_when": [
+        "추천 기준이 없을 때",
+        "모든 선택지를 설명만 하는 경우"
+      ],
+      "required_inputs": [
+        "options",
+        "criteria",
+        "recommendation"
+      ],
+      "layout": "열=옵션, 행=기준, 추천안 강조"
+    },
+    {
+      "id": "image_board",
+      "role": "evidence_visual",
+      "name": "근거 이미지 보드",
+      "use_when": [
+        "사례/캡처/현장 이미지가 근거일 때",
+        "이미지 2~4개를 비교할 때"
+      ],
+      "avoid_when": [
+        "이미지가 분위기 장식일 뿐일 때",
+        "캡처가 읽히지 않는 경우"
+      ],
+      "required_inputs": [
+        "images",
+        "captions",
+        "takeaway"
+      ],
+      "layout": "같은 높이 이미지 2~4개 + 짧은 캡션 + 하단 결론 바"
+    },
+    {
+      "id": "org_roles",
+      "role": "organization",
+      "name": "조직/역할 체계",
+      "use_when": [
+        "참여인력, 조직도, R&R을 보여줄 때"
+      ],
+      "avoid_when": [
+        "시간 흐름이 핵심일 때",
+        "사람 실데이터가 검토 전인 경우"
+      ],
+      "required_inputs": [
+        "teams",
+        "roles",
+        "lead"
+      ],
+      "layout": "상위 책임자 + 하위 역할 박스 + 보고/협업 라인"
+    },
+    {
+      "id": "risk_dashboard",
+      "role": "risk",
+      "name": "리스크 점검판",
+      "use_when": [
+        "리스크와 대응을 한 번에 점검할 때"
+      ],
+      "avoid_when": [
+        "리스크 근거가 없거나 과장해야 하는 경우"
+      ],
+      "required_inputs": [
+        "risks",
+        "severity",
+        "mitigations"
+      ],
+      "layout": "리스크 표 + 심각도 신호 + 대응책"
+    },
+    {
+      "id": "portfolio_cases",
+      "role": "portfolio",
+      "name": "실적/사례 카드",
+      "use_when": [
+        "수행 경험을 대표 사례로 설득해야 할 때"
+      ],
+      "avoid_when": [
+        "실적 실데이터가 아직 미확정일 때"
+      ],
+      "required_inputs": [
+        "cases",
+        "metrics",
+        "client_safe_names"
+      ],
+      "layout": "대표 사례 카드 2~4개 + 성과 수치 + 검토요망 표시"
+    },
+    {
+      "id": "closing_matrix",
+      "role": "closing",
+      "name": "마무리 약속 매트릭스",
+      "use_when": [
+        "제안의 차별점과 실행 약속을 마지막에 정리할 때"
+      ],
+      "avoid_when": [
+        "새로운 주장을 마지막에 처음 꺼내야 하는 경우"
+      ],
+      "required_inputs": [
+        "commitments",
+        "proof_points"
+      ],
+      "layout": "약속 3개 + 근거/실행 방식 + 컨셉 문장"
+    },
+    {
+      "id": "executive_summary_paragraph",
+      "role": "executive_summary",
+      "name": "Executive Summary Paragraph",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "The summary is a flowing narrative of 2–4 short paragraphs and the audience expects a written argument rather than scannable bullets. Best for written reports rather than spoken decks."
+      ],
+      "avoid_when": [
+        "The summary naturally breaks into 2–4 distinct takeaways with supporting bullets — use `executive_summary_takeaways` instead."
+      ],
+      "required_inputs": [
+        "paragraphs: list[str]"
+      ],
+      "field_shapes": {
+        "paragraphs": "list[str]"
+      },
+      "layout": "Renderer `executive_summary_paragraph`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "executive_summary_takeaways",
+      "role": "executive_summary",
+      "name": "Executive Summary Takeaways",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "The summary is structured as 2–4 bold takeaways, each backed by 2–4 bullets, optionally ending with a final recommendation. This is a common executive-summary pattern (bold takeaways + supporting bullets)."
+      ],
+      "avoid_when": [
+        "You only have one takeaway (use `dark_navy_summary` for a single impact statement) or have prose paragraphs (`executive_summary_paragraph`)."
+      ],
+      "required_inputs": [
+        "sections: list[{bullets:list[str], takeaway:str}]"
+      ],
+      "field_shapes": {
+        "sections": "list[{bullets:list[str], takeaway:str}]"
+      },
+      "layout": "Renderer `executive_summary_takeaways`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "dark_navy_summary",
+      "role": "summary",
+      "name": "dark navy summary",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "A single impact statement deserves its own slide — typically a key finding, section divider, or 'if you remember one thing...' moment. Renders as a full-bleed deep navy slide with bold white text."
+      ],
+      "avoid_when": [
+        "You have multiple takeaways (use `executive_summary_takeaways`)."
+      ],
+      "required_inputs": [
+        "body: str"
+      ],
+      "field_shapes": {
+        "body": "str"
+      },
+      "layout": "Renderer `dark_navy_summary`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "assessment_table",
+      "role": "status_overview",
+      "name": "Assessment Table",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "You're showing KPIs grouped by category/BU with target vs. actual values and a green/amber/red status per row. Standard for QBR or progress slides."
+      ],
+      "avoid_when": [
+        "You just need a list of status items without category grouping or numeric target/actual columns — consider `three_trends_table` or `overview_areas`."
+      ],
+      "required_inputs": [
+        "categories: list[{name:str, rows:list[dict]}]"
+      ],
+      "field_shapes": {
+        "categories": "list[{name:str, rows:list[dict]}]"
+      },
+      "layout": "Renderer `assessment_table`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "bubble_chart",
+      "role": "matrix",
+      "name": "Bubble Chart",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "You want to position 5–15 entities on two continuous dimensions with bubble size encoding a third dimension. Optional diagonal reference line. Use when there is no separate takeaway pane needed."
+      ],
+      "avoid_when": [
+        "You also need bullets explaining the chart (use `bubble_chart_takeaways`), or you have categorical 2x2/3x3 quadrants (use `growth_share` or `prioritization_matrix`)."
+      ],
+      "required_inputs": [
+        "bubbles: list[{group:str, label:str, label_pos:str, size:num, x:num, y:num}]"
+      ],
+      "field_shapes": {
+        "bubbles": "list[{group:str, label:str, label_pos:str, size:num, x:num, y:num}]"
+      },
+      "layout": "Renderer `bubble_chart`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "bubble_chart_takeaways",
+      "role": "matrix",
+      "name": "Bubble Chart Takeaways",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Same scatter use case as `bubble_chart` but you also want a right-side bullet pane explaining what to read from the chart. Good for exec audiences."
+      ],
+      "avoid_when": [
+        "The chart speaks for itself; or you need quadrant labels — then use `growth_share` or `prioritization_matrix`."
+      ],
+      "required_inputs": [
+        "bubbles: list[{group:str, label:str, label_pos:str, size:num, x:num, y:num}]",
+        "takeaways: list[str]"
+      ],
+      "field_shapes": {
+        "bubbles": "list[{group:str, label:str, label_pos:str, size:num, x:num, y:num}]",
+        "takeaways": "list[str]"
+      },
+      "layout": "Renderer `bubble_chart_takeaways`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "growth_share",
+      "role": "matrix",
+      "name": "growth-share matrix",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Classic BCG portfolio analysis — market share (x) × growth rate (y) with four quadrants (Star / Question mark / Cash cow / Dog). Bubbles are business units sized by revenue/value."
+      ],
+      "avoid_when": [
+        "Your axes aren't market share × growth, or you have 3x3 bands rather than a 2x2 split — use `prioritization_matrix`."
+      ],
+      "required_inputs": [
+        "bus: list[{name:str, size:num, x:num, y:num}]"
+      ],
+      "field_shapes": {
+        "bus": "list[{name:str, size:num, x:num, y:num}]"
+      },
+      "layout": "Renderer `growth_share`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "bcg_matrix"
+    },
+    {
+      "id": "prioritization_matrix",
+      "role": "matrix",
+      "name": "Prioritization Matrix",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Plotting initiatives on Time-to-impact (Long/Medium/Short) × Level-of-impact (Low/Medium/High), with color-coded status (green/amber/red) per item. Top-right cell is highlighted."
+      ],
+      "avoid_when": [
+        "You have continuous axes — use `bubble_chart`. You have 2x2 BCG axes — use `growth_share`."
+      ],
+      "required_inputs": [
+        "items: list[{name:str, status:str, x_band:num, y_band:num}]"
+      ],
+      "field_shapes": {
+        "items": "list[{name:str, status:str, x_band:num, y_band:num}]"
+      },
+      "layout": "Renderer `prioritization_matrix`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "column_comparison",
+      "role": "chart",
+      "name": "Column Comparison",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Comparing one metric across 5–12 categorical groups, sorted from high to low, with one bar highlighted in bright blue (the 'focus') and the rest in deep navy. Right-side takeaway pane."
+      ],
+      "avoid_when": [
+        "Your x-axis is time — use one of the time-series column charts (`column_simple_growth`, `column_split_growth`, `column_historic_forecast`)."
+      ],
+      "required_inputs": [
+        "categories: list[str]",
+        "values: list[num]"
+      ],
+      "field_shapes": {
+        "categories": "list[str]",
+        "values": "list[num]"
+      },
+      "layout": "Renderer `column_comparison`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "column_simple_growth",
+      "role": "chart",
+      "name": "Column Simple Growth",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Showing one metric across 5–10 time periods with a single overall growth-rate callout (e.g. '10% CAGR'). All bars same color."
+      ],
+      "avoid_when": [
+        "Growth has a structural break mid-period (use `column_split_growth`); you need to distinguish actuals vs forecast (use `column_historic_forecast`)."
+      ],
+      "required_inputs": [
+        "categories: list[str]",
+        "values: list[num]",
+        "growth_pct: num|str"
+      ],
+      "field_shapes": {
+        "categories": "list[str]",
+        "values": "list[num]",
+        "growth_pct": "num|str"
+      },
+      "layout": "Renderer `column_simple_growth`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "column_split_growth",
+      "role": "chart",
+      "name": "Column Split Growth",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "A single time series has two distinct growth phases (e.g. flat then accelerating) and you want two growth-arrow annotations to highlight the inflection."
+      ],
+      "avoid_when": [
+        "Growth is uniform (use `column_simple_growth`); split is forecast vs actuals (use `column_historic_forecast`)."
+      ],
+      "required_inputs": [
+        "categories: list[str]",
+        "values: list[num]",
+        "split_index: num",
+        "growth_pct_first: num|str",
+        "growth_pct_second: num|str"
+      ],
+      "field_shapes": {
+        "categories": "list[str]",
+        "values": "list[num]",
+        "split_index": "num",
+        "growth_pct_first": "num|str",
+        "growth_pct_second": "num|str"
+      },
+      "layout": "Renderer `column_split_growth`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "column_historic_forecast",
+      "role": "chart",
+      "name": "Column Historic Forecast",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Showing actuals vs forecast. Historic bars in deep navy, forecast bars in bright blue, with two growth-rate arrows (historic and forecast)."
+      ],
+      "avoid_when": [
+        "All values are actuals — use `column_simple_growth` or `column_split_growth`."
+      ],
+      "required_inputs": [
+        "categories: list[str]",
+        "values: list[num]",
+        "forecast_from_index: num",
+        "historic_growth: num|str",
+        "forecast_growth: num|str"
+      ],
+      "field_shapes": {
+        "categories": "list[str]",
+        "values": "list[num]",
+        "forecast_from_index": "num",
+        "historic_growth": "num|str",
+        "forecast_growth": "num|str"
+      },
+      "layout": "Renderer `column_historic_forecast`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "three_trends_icons",
+      "role": "trends",
+      "name": "Three Trends Icons",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Presenting exactly three trends/areas, each with a circular icon and 3–4 bullet points. Storytelling-style; less data, more narrative."
+      ],
+      "avoid_when": [
+        "You have exactly five themes (use `five_key_areas`), more than three (use `overview_areas`), or want examples per theme (use `three_trends_table`)."
+      ],
+      "required_inputs": [
+        "trends: list[{bullets:list[str], icon:str, label:str}]"
+      ],
+      "field_shapes": {
+        "trends": "list[{bullets:list[str], icon:str, label:str}]"
+      },
+      "layout": "Renderer `three_trends_icons`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "three_trends_table",
+      "role": "trends",
+      "name": "Three Trends Table",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Three trends, each with a name pill, description bullets, and example bullets in a third column."
+      ],
+      "avoid_when": [
+        "You don't have concrete examples — use `three_trends_icons` or `three_trends_numbered`."
+      ],
+      "required_inputs": [
+        "trends: list[{description:list[str], examples:list[str], name:str}]"
+      ],
+      "field_shapes": {
+        "trends": "list[{description:list[str], examples:list[str], name:str}]"
+      },
+      "layout": "Renderer `three_trends_table`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "three_trends_numbered",
+      "role": "trends",
+      "name": "Three Trends Numbered",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Three trends shown as numbered rows with a bright blue label pill and bullet points. Good for sequenced/prioritized trends."
+      ],
+      "avoid_when": [
+        "Not exactly three items, or icons would be more visual."
+      ],
+      "required_inputs": [
+        "trends: list[{bullets:list[str], label:str}]"
+      ],
+      "field_shapes": {
+        "trends": "list[{bullets:list[str], label:str}]"
+      },
+      "layout": "Renderer `three_trends_numbered`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "five_key_areas",
+      "role": "areas",
+      "name": "Five Key Areas",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Presenting exactly five (or six) areas, each with a name pill, a right-arrow connector, and a one-line description in alternating gray rows. Best for compact '5 strategic areas' slides."
+      ],
+      "avoid_when": [
+        "Three items (use `three_trends_*`), or seven-ish (use `overview_areas`)."
+      ],
+      "required_inputs": [
+        "areas: list[{description:str, name:str}]"
+      ],
+      "field_shapes": {
+        "areas": "list[{description:str, name:str}]"
+      },
+      "layout": "Renderer `five_key_areas`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "overview_areas",
+      "role": "areas",
+      "name": "Overview Areas",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "5–7 columns of 'areas' with a header pill, lettered badge (A–G), and bullet content. Optional bottom-left blue call-out tag."
+      ],
+      "avoid_when": [
+        "Just five items with one-line descriptions — use `five_key_areas`. You have three items — use `three_trends_*`."
+      ],
+      "required_inputs": [
+        "areas: list[{bullets:list[str], name:str}]"
+      ],
+      "field_shapes": {
+        "areas": "list[{bullets:list[str], name:str}]"
+      },
+      "layout": "Renderer `overview_areas`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "issue_tree",
+      "role": "hierarchy",
+      "name": "Issue Tree",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Decomposing one root issue into hierarchical drivers (Main → Secondary → Underlying). Standard problem-solving framework slide."
+      ],
+      "avoid_when": [
+        "Hierarchy is reporting structure (use `org_chart`)."
+      ],
+      "required_inputs": [
+        "root: str",
+        "main_drivers: list[{label:str, secondaries:list[dict]}]"
+      ],
+      "field_shapes": {
+        "root": "str",
+        "main_drivers": "list[{label:str, secondaries:list[dict]}]"
+      },
+      "layout": "Renderer `issue_tree`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "org_chart",
+      "role": "hierarchy",
+      "name": "Org Chart",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Showing reporting structure: CEO → N heads → reports per head. Boxes with names/titles."
+      ],
+      "avoid_when": [
+        "Need icon-based team rendering — use `project_team_circles`."
+      ],
+      "required_inputs": [
+        "ceo: str",
+        "branches: list[{head:str, reports:list[str]}]"
+      ],
+      "field_shapes": {
+        "ceo": "str",
+        "branches": "list[{head:str, reports:list[str]}]"
+      },
+      "layout": "Renderer `org_chart`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "project_team_circles",
+      "role": "org",
+      "name": "Project Team Circles",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Highlighting one leader with N teammates rendered as labeled circles (with optional Unicode icons). Best for staffing slides."
+      ],
+      "avoid_when": [
+        "You need a function × role grid — use `team_chart`."
+      ],
+      "required_inputs": [
+        "leader: obj{name:str, description:str, icon:str}",
+        "members: list[{description:str, icon:str, name:str}]"
+      ],
+      "field_shapes": {
+        "leader": "obj{name:str, description:str, icon:str}",
+        "members": "list[{description:str, icon:str, name:str}]"
+      },
+      "layout": "Renderer `project_team_circles`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "team_chart",
+      "role": "org",
+      "name": "Team Chart",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Showing a project team broken down by function (columns) with multiple roles per function (filled or outline circles)."
+      ],
+      "avoid_when": [
+        "You only need a list of N teammates — use `project_team_circles`."
+      ],
+      "required_inputs": [
+        "project_name: str",
+        "functions: list[{description:str, name:str, roles:list[str]}]"
+      ],
+      "field_shapes": {
+        "project_name": "str",
+        "functions": "list[{description:str, name:str, roles:list[str]}]"
+      },
+      "layout": "Renderer `team_chart`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "phases_chevron_3",
+      "role": "timeline",
+      "name": "Phases Chevron 3",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Project breaks naturally into exactly three phases shown as chevron arrows (Discover → Design → Deliver style), each with deliverables and people lists below."
+      ],
+      "avoid_when": [
+        "Four phases — use `phases_table_4` or `waves_timeline_4`."
+      ],
+      "required_inputs": [
+        "phases: list[{deliverables:list[str], label:str, people:list[str], timeframe:str}]"
+      ],
+      "field_shapes": {
+        "phases": "list[{deliverables:list[str], label:str, people:list[str], timeframe:str}]"
+      },
+      "layout": "Renderer `phases_chevron_3`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "phases_table_4",
+      "role": "timeline",
+      "name": "Phases Table 4",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Four phases laid out as parallel columns (Phase 1–4) with description + Key activities + Outcomes per column. More text than chevron."
+      ],
+      "avoid_when": [
+        "Three phases — use `phases_chevron_3`."
+      ],
+      "required_inputs": [
+        "phases: list[{activities:list[str], description:str, name:str, outcomes:list[str]}]"
+      ],
+      "field_shapes": {
+        "phases": "list[{activities:list[str], description:str, name:str, outcomes:list[str]}]"
+      },
+      "layout": "Renderer `phases_table_4`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "waves_timeline_4",
+      "role": "timeline",
+      "name": "Waves Timeline 4",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Project rolls out in four sequential waves on a single horizontal arrow (with circle markers). Each wave has a headline, key activities, and deliverables."
+      ],
+      "avoid_when": [
+        "You're showing parallel workstreams over weeks (use `gantt_timeline`); only three phases (use `phases_chevron_3`)."
+      ],
+      "required_inputs": [
+        "waves: list[{activities:list[str], deliverables:list[str], headline:str, name:str, timeframe:str}]"
+      ],
+      "field_shapes": {
+        "waves": "list[{activities:list[str], deliverables:list[str], headline:str, name:str, timeframe:str}]"
+      },
+      "layout": "Renderer `waves_timeline_4`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "gantt_timeline",
+      "role": "timeline",
+      "name": "Gantt Timeline",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Multiple parallel workstreams across many weeks (rows × week columns), with milestones marked at specific weeks. The right tool for detailed project plans."
+      ],
+      "avoid_when": [
+        "Only 3–4 phases (use `phases_chevron_3` / `phases_table_4` / `waves_timeline_4`)."
+      ],
+      "required_inputs": [
+        "weeks: list[str]",
+        "workstreams: list[{color:str, end_week:num, name:str, start_week:num}]"
+      ],
+      "field_shapes": {
+        "weeks": "list[str]",
+        "workstreams": "list[{color:str, end_week:num, name:str, start_week:num}]"
+      },
+      "layout": "Renderer `gantt_timeline`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "process_activities",
+      "role": "timeline",
+      "name": "Process Activities",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "A short project plan with 3–4 time blocks (e.g. Week 1–4, 5–8…) showing per-block Activities + Mgmt. interaction (diamond marker) + Deliverables (diamond marker)."
+      ],
+      "avoid_when": [
+        "Long plans across 10+ weeks (use `gantt_timeline`)."
+      ],
+      "required_inputs": [
+        "steps: list[{activities:list[str], deliverable:str, interaction:str, name:str, subtitle:str}]"
+      ],
+      "field_shapes": {
+        "steps": "list[{activities:list[str], deliverable:str, interaction:str, name:str, subtitle:str}]"
+      },
+      "layout": "Renderer `process_activities`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "cover_slide",
+      "role": "cover",
+      "name": "Cover Slide",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Every standalone deck. Renders the deck title, subtitle, client, and date with a deep navy stripe down the right edge and an optional 'CONFIDENTIAL' tag in the top-right."
+      ],
+      "avoid_when": [
+        "This is an internal section divider — use `section_divider`."
+      ],
+      "required_inputs": [
+        "title: str"
+      ],
+      "field_shapes": {
+        "title": "str"
+      },
+      "layout": "Renderer `cover_slide`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "cover"
+    },
+    {
+      "id": "section_divider",
+      "role": "divider",
+      "name": "Section Divider",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Decks of more than ~10 slides need clear section breaks. Renders a left navy panel with a giant chapter number and a right title block with accent line + subtitle."
+      ],
+      "avoid_when": [
+        "A single agenda slide is enough (use `agenda`)."
+      ],
+      "required_inputs": [
+        "section_number: str",
+        "section_title: str"
+      ],
+      "field_shapes": {
+        "section_number": "str",
+        "section_title": "str"
+      },
+      "layout": "Renderer `section_divider`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "agenda",
+      "role": "agenda",
+      "name": "Agenda",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Up-front roadmap of the deck (or before each major section). Numbered chapter list with optional active highlight."
+      ],
+      "avoid_when": [
+        "The deck is short enough that an agenda is overhead."
+      ],
+      "required_inputs": [
+        "items: list[str]"
+      ],
+      "field_shapes": {
+        "items": "list[str]"
+      },
+      "layout": "Renderer `agenda`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "stat_hero",
+      "role": "stat",
+      "name": "Stat Hero",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "A single statistic is *the* point — e.g., '82% of CEOs say…', '$50B addressable market', '1.5 billion users by 2030'. Renders the number huge in deep navy with a label and optional supporting paragraph."
+      ],
+      "avoid_when": [
+        "You have multiple numbers (use `kpi_dashboard`); the number is part of a chart."
+      ],
+      "required_inputs": [
+        "stat: str",
+        "stat_label: str"
+      ],
+      "field_shapes": {
+        "stat": "str",
+        "stat_label": "str"
+      },
+      "layout": "Renderer `stat_hero`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "big_number"
+    },
+    {
+      "id": "quote_slide",
+      "role": "quote",
+      "name": "Quote Slide",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Showcasing a single interview quote, customer voice, or expert opinion. Big quotation mark + italic quote + accent line + attribution."
+      ],
+      "avoid_when": [
+        "Many quotes — pick one and put the rest in an appendix."
+      ],
+      "required_inputs": [
+        "quote: str",
+        "author: str"
+      ],
+      "field_shapes": {
+        "quote": "str",
+        "author": "str"
+      },
+      "layout": "Renderer `quote_slide`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "quote"
+    },
+    {
+      "id": "comparison_table_house_b",
+      "role": "table",
+      "name": "Comparison Table",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Comparing 2–4 options across 3–6 criteria with Harvey-ball ratings (0–4 quartile fills). Optional `recommended_index` highlights the chosen column in bright blue with a '★ Recommended' tag."
+      ],
+      "avoid_when": [
+        "You have only one option (use `pros_cons`); criteria are all numeric (use a `comparison_table`-style chart in `column_comparison`)."
+      ],
+      "required_inputs": [
+        "options: list[str]",
+        "criteria: list[{name:str, notes:list[str], scores:list[num|str]}]"
+      ],
+      "field_shapes": {
+        "options": "list[str]",
+        "criteria": "list[{name:str, notes:list[str], scores:list[num|str]}]"
+      },
+      "layout": "Renderer `comparison_table`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "option_compare",
+      "namespace_note": "ID also exists in house_a catalog; prefer this house_b entry only when house_b field_shapes can be filled and the selected pack/layout target is house_b.",
+      "selection_priority": "pack-aware: house_b shape match beats generic id match; otherwise keep house_a/default behavior."
+    },
+    {
+      "id": "pros_cons",
+      "role": "assessment",
+      "name": "Pros Cons",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Two-column +/− analysis of ONE option (or as a quick check on recommendations). Green ✓ pros / red ✗ cons."
+      ],
+      "avoid_when": [
+        "Multiple options (use `comparison_table`)."
+      ],
+      "required_inputs": [
+        "pros: list[str]",
+        "cons: list[str]"
+      ],
+      "field_shapes": {
+        "pros": "list[str]",
+        "cons": "list[str]"
+      },
+      "layout": "Renderer `pros_cons`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "two_column_compare",
+      "role": "assessment",
+      "name": "Two Column Compare",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Before/After, As-is/To-be, Current/Future state visualization. Two cards with header bands and a connecting arrow between them."
+      ],
+      "avoid_when": [
+        "You have 3+ options (use `comparison_table`); you have +/- analysis (use `pros_cons`)."
+      ],
+      "required_inputs": [
+        "left_label: str",
+        "right_label: str",
+        "left_items: list[str|num]",
+        "right_items: list[str|num]"
+      ],
+      "field_shapes": {
+        "left_label": "str",
+        "right_label": "str",
+        "left_items": "list[str|num]",
+        "right_items": "list[str|num]"
+      },
+      "layout": "Renderer `two_column_compare`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "before_after"
+    },
+    {
+      "id": "stacked_column_chart",
+      "role": "chart",
+      "name": "Stacked Column Chart",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Decomposing a total into 2–5 segments per category (e.g. revenue by region across years). Per-segment values labeled inside, total labeled above each bar."
+      ],
+      "avoid_when": [
+        "Showing growth of a single value (use `column_simple_growth`) or comparing two scenarios per category (use `grouped_column_chart`)."
+      ],
+      "required_inputs": [
+        "categories: list[str]",
+        "series: list[{name:str, values:list[num]}]"
+      ],
+      "field_shapes": {
+        "categories": "list[str]",
+        "series": "list[{name:str, values:list[num]}]"
+      },
+      "layout": "Renderer `stacked_column_chart`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "stacked_column"
+    },
+    {
+      "id": "grouped_column_chart",
+      "role": "chart",
+      "name": "Grouped Column Chart",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "Comparing 2–4 series across the same set of categories (e.g. two years per country, before/after per business unit)."
+      ],
+      "avoid_when": [
+        "Showing parts-of-whole (use `stacked_column_chart`)."
+      ],
+      "required_inputs": [
+        "categories: list[str]",
+        "series: list[{name:str, values:list[num]}]"
+      ],
+      "field_shapes": {
+        "categories": "list[str]",
+        "series": "list[{name:str, values:list[num]}]"
+      },
+      "layout": "Renderer `grouped_column_chart`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "grouped_column"
+    },
+    {
+      "id": "line_chart",
+      "role": "chart",
+      "name": "Line Chart",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "1–4 lines tracking a metric over time or sequence (monthly sales, regional KPIs). Markers at every data point, configurable per-series value labels."
+      ],
+      "avoid_when": [
+        "Discrete categorical comparison (use `column_comparison` or `grouped_column_chart`)."
+      ],
+      "required_inputs": [
+        "categories: list[str]",
+        "series: list[{color:str, name:str, values:list[num]}]"
+      ],
+      "field_shapes": {
+        "categories": "list[str]",
+        "series": "list[{color:str, name:str, values:list[num]}]"
+      },
+      "layout": "Renderer `line_chart`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "process_flow_horizontal",
+      "role": "process",
+      "name": "Process Flow Horizontal",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "A 4–6 step sequential process with a one-line description per step. Numbered chevron tiles in alternating navy/bright-blue."
+      ],
+      "avoid_when": [
+        "Phases need full sub-content (use `phases_chevron_3` or `phases_table_4`); process is iterative not linear."
+      ],
+      "required_inputs": [
+        "steps: list[{description:str, name:str}]"
+      ],
+      "field_shapes": {
+        "steps": "list[{description:str, name:str}]"
+      },
+      "layout": "Renderer `process_flow_horizontal`. Fill fields exactly as field_shapes; do not pass strings for list/object fields.",
+      "alias": "process_flow"
+    },
+    {
+      "id": "funnel",
+      "role": "funnel",
+      "name": "Funnel",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "TAM/SAM/SOM market sizing, marketing funnel (awareness → consideration → purchase → loyalty), or any quantity that shrinks down a sequence. Each band shows name + headline value; descriptions on the right."
+      ],
+      "avoid_when": [
+        "No clear narrowing logic (use `process_flow_horizontal`)."
+      ],
+      "required_inputs": [
+        "stages: list[{description:str, name:str, value:str}]"
+      ],
+      "field_shapes": {
+        "stages": "list[{description:str, name:str, value:str}]"
+      },
+      "layout": "Renderer `funnel`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    },
+    {
+      "id": "kpi_dashboard",
+      "role": "kpi",
+      "name": "KPI dashboard",
+      "source_pack": "house_b",
+      "source": "packs/house_b/templates.json; CONTEXT/research/PHASE1A_field_contract.md",
+      "use_when": [
+        "4–8 KPIs at a glance, each with a big value, small delta (▲ green / ▼ red / ▬ flat), and optional context line. Standard for QBRs and ops reviews."
+      ],
+      "avoid_when": [
+        "A single metric (use `stat_hero`); KPIs need full target/actual context (use `assessment_table`)."
+      ],
+      "required_inputs": [
+        "kpis: list[{context:str, delta:str, delta_dir:str, label:str, value:str}]"
+      ],
+      "field_shapes": {
+        "kpis": "list[{context:str, delta:str, delta_dir:str, label:str, value:str}]"
+      },
+      "layout": "Renderer `kpi_dashboard`. Fill fields exactly as field_shapes; do not pass strings for list/object fields."
+    }
+  ]
+}

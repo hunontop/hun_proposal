@@ -1,0 +1,133 @@
+<svg viewBox="0 0 980 860" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ttl dsc" font-family="'Pretendard', system-ui, sans-serif">
+  <title id="ttl">hun_proposal 전체 구조</title>
+  <desc id="dsc">입력(RFP·분석카드)에서 proposal_system 파이프라인, 3축(패턴셋·카탈로그·테마)로 조립한 deck.json(SSOT), 렌더 출력(HTML·PPTX), 렌더 후 stage9 디자인 디렉터 정련, 그리고 테마 추가(add-skin)와 운영 레이어까지의 전체 흐름.</desc>
+  <style>
+    svg{
+      --ink:#17223b; --sub:#5b6472; --line:#c4ccd6; --surf:#ffffff;
+      --orange:#e8722e; --orangeSoft:#fbe9dc;
+      --teal:#1f8a8a; --tealSoft:#dcefef;
+      --blue:#3a6ea5; --blueSoft:#e2ecf7;
+      --gray:#7a8595; --graySoft:#eceef2;
+    }
+    @media (prefers-color-scheme: dark){
+      svg{ --ink:#e8ecf3; --sub:#9aa5b5; --line:#3a4457; --surf:#1b2233;
+        --orangeSoft:#3a2718; --tealSoft:#123030; --blueSoft:#16283f; --graySoft:#232b3a; }
+    }
+    .band{ font-size:12px; font-weight:800; letter-spacing:.14em; fill:var(--sub); }
+    .bt{ font-size:13.5px; font-weight:700; fill:var(--ink); }
+    .bs{ font-size:10.5px; fill:var(--sub); }
+    .ssot{ font-size:14px; font-weight:800; fill:var(--ink); }
+    .tag{ font-size:10px; font-weight:700; letter-spacing:.12em; }
+    .lg{ font-size:11px; fill:var(--sub); }
+    .box{ fill:var(--surf); stroke:var(--line); stroke-width:1.4; }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--sub)"/>
+    </marker>
+  </defs>
+
+  <text x="34" y="40" font-size="21" font-weight="800" fill="var(--ink)">hun_proposal — 전체 구조</text>
+  <text x="34" y="60" font-size="12" fill="var(--sub)">RFP → 파이프라인 → 3축 조립 → deck.json(SSOT) → 렌더 → stage9 디렉터 정련 · 테마/운영 레이어</text>
+
+  <text class="band" x="360" y="92">입력</text>
+  <rect class="box" x="300" y="100" width="150" height="46" rx="9"/>
+  <text class="bt" x="375" y="121" text-anchor="middle">RFP · 나라장터 공고</text>
+  <text class="bs" x="375" y="137" text-anchor="middle">첨부 파싱</text>
+  <rect class="box" x="470" y="100" width="150" height="46" rx="9"/>
+  <text class="bt" x="545" y="121" text-anchor="middle">분석카드</text>
+  <text class="bs" x="545" y="137" text-anchor="middle">사실 근거(SSOT 소스)</text>
+
+  <line x1="460" y1="146" x2="460" y2="168" stroke="var(--sub)" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect class="box" x="300" y="170" width="320" height="52" rx="9" fill="var(--blueSoft)" stroke="var(--blue)"/>
+  <text class="bt" x="460" y="192" text-anchor="middle">proposal_system  1 → 5</text>
+  <text class="bs" x="460" y="209" text-anchor="middle">수집 · 선별 · 분석 · 스토리라인(사실만·미확인 flag)</text>
+
+  <text class="band" x="34" y="192">3축 조립 (지식)</text>
+  <rect class="box" x="34" y="200" width="230" height="120" rx="10" fill="var(--orangeSoft)" stroke="var(--orange)"/>
+  <text class="bt" x="50" y="224">① 패턴셋 — 무엇을 논증</text>
+  <text class="bt" x="50" y="252">② 카탈로그 — 어떤 틀(공유)</text>
+  <text class="bt" x="50" y="280">③ 테마/스킨 — 어떻게 보임</text>
+  <text class="bs" x="50" y="298">공공홍보(house_a)·기본(house_b)</text>
+  <text class="bs" x="50" y="312">·오렌지(quartz/quartz_guide)</text>
+  <path d="M264 274 C 300 274, 300 250, 330 250" fill="none" stroke="var(--orange)" stroke-width="1.6" marker-end="url(#ah)"/>
+
+  <line x1="460" y1="222" x2="460" y2="242" stroke="var(--sub)" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect class="box" x="330" y="244" width="260" height="46" rx="9"/>
+  <text class="bt" x="460" y="264" text-anchor="middle">app/ 엔진 — ingest · bind</text>
+  <text class="bs" x="460" y="280" text-anchor="middle">노하우 0 · 3축을 정본으로 주입</text>
+
+  <line x1="460" y1="290" x2="460" y2="310" stroke="var(--sub)" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect class="box" x="352" y="312" width="216" height="50" rx="10" stroke="var(--ink)" stroke-width="2"/>
+  <text class="ssot" x="460" y="333" text-anchor="middle">deck.json</text>
+  <text class="bs" x="460" y="350" text-anchor="middle">정본 SlideModel — 단일 진실원천(SSOT)</text>
+
+  <line x1="460" y1="362" x2="460" y2="382" stroke="var(--sub)" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect class="box" x="352" y="384" width="216" height="44" rx="9"/>
+  <text class="bt" x="460" y="404" text-anchor="middle">app/render</text>
+  <text class="bs" x="460" y="420" text-anchor="middle">팩·스킨·카탈로그 캐스케이드</text>
+
+  <rect class="box" x="300" y="446" width="150" height="42" rx="9"/>
+  <text class="bt" x="375" y="472" text-anchor="middle">HTML (주력)</text>
+  <rect class="box" x="470" y="446" width="150" height="42" rx="9"/>
+  <text class="bt" x="545" y="472" text-anchor="middle">PPTX (네이티브)</text>
+  <line x1="425" y1="428" x2="390" y2="444" stroke="var(--sub)" stroke-width="1.4" marker-end="url(#ah)"/>
+  <line x1="495" y1="428" x2="530" y2="444" stroke="var(--sub)" stroke-width="1.4" marker-end="url(#ah)"/>
+
+  <line x1="460" y1="488" x2="460" y2="508" stroke="var(--sub)" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect class="box" x="256" y="510" width="408" height="120" rx="12" fill="var(--tealSoft)" stroke="var(--teal)"/>
+  <text class="tag" x="276" y="532" fill="var(--teal)">★ STAGE9 · 렌더 後 · 비전</text>
+  <text class="bt" x="276" y="554">디자인 디렉터 패스</text>
+  <text class="bs" x="276" y="572">진단 → override(append-only·css만) → apply → approve</text>
+  <text class="bs" x="276" y="588">deck.json 본문 불변(SSOT 가드) · 덱 1회 승인</text>
+  <rect class="box" x="276" y="598" width="368" height="24" rx="6" fill="var(--surf)" stroke="var(--teal)"/>
+  <text class="bs" x="286" y="614">이미지 슬롯: mood/conceptual=Codex SVG · evidence 자동생성 금지 · tier&lt;2 degrade</text>
+
+  <text class="band" x="704" y="192">테마(스킨) 추가</text>
+  <rect class="box" x="704" y="200" width="244" height="150" rx="10" fill="var(--orangeSoft)" stroke="var(--orange)"/>
+  <text class="bt" x="720" y="224">add-skin  (원샷)</text>
+  <text class="bs" x="720" y="244">① 레퍼런스 PPTX/PDF</text>
+  <text class="bs" x="720" y="262">② 포팅 port_design_guide.py</text>
+  <text class="bs" x="720" y="280">③ (선택) tokens skin_extract</text>
+  <text class="bs" x="720" y="298">④ config 자동 등록(멱등)</text>
+  <text class="bs" x="720" y="316">⑤ resolve 검증</text>
+  <text class="bs" x="720" y="338" font-weight="700" fill="var(--orange)">→ --design-guide / --skins &lt;id&gt;</text>
+  <path d="M704 270 C 660 270, 300 250, 264 258" fill="none" stroke="var(--orange)" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+  <text class="bs" x="470" y="246" text-anchor="middle" fill="var(--orange)">신규 테마 공급</text>
+
+  <text class="band" x="34" y="676">운영 · 오케스트레이션 레이어</text>
+  <rect x="34" y="686" width="914" height="120" rx="12" fill="var(--graySoft)" stroke="var(--line)"/>
+
+  <rect class="box" x="52" y="704" width="210" height="84" rx="9"/>
+  <text class="bt" x="68" y="726">대시보드  :8754</text>
+  <text class="bs" x="68" y="744">검색→선별→분석→스토리라인</text>
+  <text class="bs" x="68" y="760">→렌더→품질리포트→확정</text>
+  <text class="bs" x="68" y="776">사람=선택·검수 / LLM=생성</text>
+
+  <rect class="box" x="278" y="704" width="230" height="84" rx="9"/>
+  <text class="bt" x="294" y="726">CONTEXT/ 오케스트레이션</text>
+  <text class="bs" x="294" y="744">RESUME·plan·state</text>
+  <text class="bs" x="294" y="760">협업 tier 다이얼 0/2/3</text>
+  <text class="bs" x="294" y="776">agents inbox/outbox · CONTROL</text>
+
+  <rect class="box" x="524" y="704" width="200" height="84" rx="9"/>
+  <text class="bt" x="540" y="726">친구 협업 (선택)</text>
+  <text class="bs" x="540" y="744">Codex=구현 · Gemini=경량</text>
+  <text class="bs" x="540" y="760">자기보고 불신→코드검증</text>
+  <text class="bs" x="540" y="776">기본 tier 0 (SOLO)</text>
+
+  <rect class="box" x="740" y="704" width="190" height="84" rx="9"/>
+  <text class="bt" x="756" y="726">공통 도구</text>
+  <text class="bs" x="756" y="744"><개발 원본 전용 경로>
+  <text class="bs" x="756" y="760">모니터·워처·트림</text>
+  <text class="bs" x="756" y="776">공유뇌(Obsidian) 유지</text>
+
+  <g>
+    <rect x="700" y="40" width="12" height="12" rx="3" fill="var(--blueSoft)" stroke="var(--blue)"/>
+    <text class="lg" x="718" y="50">파이프라인</text>
+    <rect x="790" y="40" width="12" height="12" rx="3" fill="var(--orangeSoft)" stroke="var(--orange)"/>
+    <text class="lg" x="808" y="50">지식/테마</text>
+    <rect x="884" y="40" width="12" height="12" rx="3" fill="var(--tealSoft)" stroke="var(--teal)"/>
+    <text class="lg" x="902" y="50">정련</text>
+  </g>
+</svg>

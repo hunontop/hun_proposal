@@ -1,0 +1,69 @@
+{
+  "paths": {
+    "proposal_core": "vendor/proposal_core",
+    "demo_cockpit": "vendor/demo_cockpit",
+    "pj_pt": "vendor/pj_pt",
+    "pt_design": "."
+  },
+  "stage5": {
+    "run_script": "run_all.bat"
+  },
+  "knowledge": {
+    "reference_images_root": "../pull-knowledge/디자인지식/reference_images",
+    "design_guides": [
+      "knowledge/design_guides/ppt_design_guide_경제형.md",
+      "vendor/pj_pt/DESIGN_SYSTEM.md"
+    ],
+    "pull_knowledge_dir": "../pull-knowledge"
+  },
+  "design_knowledge": {
+    "_comment": "δ패킷(카드 운반 배선) — 공유뇌 ref/디자인지식/ 카드 정본 + design:// 실물 자산 해석. vault_dir·knowhow_root_file 부재/경로 부재는 우아 생략(경고 1줄, 크래시 금지) — 배포판은 이 절 자체가 없어도 동작한다.",
+    "knowhow_root_file": "~/.knowhow-root"
+  },
+  "knowledge_stages": {
+    "_comment": "ε패킷(지식 소비 체계, 2026-07-23 확정) — 단계별 pull 폴더(ref/ 상대경로)·web_search 허용 여부의 config 1점화. 새 지식 도메인 추가 = vault 폴더 + 여기 한 줄. W32 마찰30(2026-08-02 사용자 확정): 기획지식 계열 단계에 루트 `기획지식`을 함께 넣는다 — 3WR 계열 핵심 카드가 하위 폴더가 아니라 루트에 있어(vault 실측) 정당한 참조가 매번 '1차 범위 밖 ⚠️'로 찍혔다. 범위 판정이 prefix 매칭이라 이제 `기획지식/*` 전체가 범위 안이 된다(예: examples/도 포함) — 1차 검색 범위 안내는 앞의 하위 폴더가 그대로 담당한다. 정본 소비 = proposal_system/scripts/knowledge_ledger.py. 마찰36(2026-08-02, 가역 — 되돌림 조항은 REHEARSAL_FRICTIONS_W31.md 행 36): storyline에 디자인지식/와이어프레임 추가 — form_intent(장별 형태 의도)의 어휘 공급. 되돌릴 땐 이 항목만 삭제.",
+    "research": {
+      "pull": [
+        "기획지식/메시지설계",
+        "기획지식/경험설계",
+        "기획지식"
+      ],
+      "web_search": true
+    },
+    "message_map": {
+      "pull": [
+        "기획지식/메시지설계",
+        "기획지식/경험설계",
+        "기획지식"
+      ],
+      "web_search": true
+    },
+    "storyline": {
+      "pull": [
+        "기획지식/메시지설계",
+        "기획지식",
+        "디자인지식/와이어프레임"
+      ],
+      "web_search": false
+    },
+    "wireframe": {
+      "pull": [
+        "디자인지식/와이어프레임"
+      ],
+      "web_search": false
+    },
+    "master_design": {
+      "pull": [
+        "디자인지식/테마"
+      ],
+      "web_search": true
+    },
+    "imagedeck_review": {
+      "pull": [
+        "기획지식/경험설계",
+        "기획지식"
+      ],
+      "web_search": false
+    }
+  }
+}

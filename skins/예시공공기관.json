@@ -1,0 +1,20 @@
+{
+  "colors": {
+    "navy": "005DAB",
+    "orange": "0099DB"
+  },
+  "brand": {
+    "client_name": "예시공공기관",
+    "client_logo": "assets/client/ci_kor.png",
+    "placement": {
+      "client": "cover",
+      "proposer": "all"
+    }
+  },
+  "_meta": {
+    "name": "예시공공기관",
+    "provenance": "https://example.org/",
+    "derivation": "institution_research --apply (W26) — brand_tokens.colors.primary/accent → colors.navy/orange(htmlgen._base_css 네이비/오렌지 승격 규약)",
+    "self_contained": false
+  }
+}

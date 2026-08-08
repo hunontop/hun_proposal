@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "slide_model.schema.json",
+  "title": "정본 SlideModel (deck)",
+  "description": "엔진/노하우팩/데이터 3계층의 허브. 모든 단계가 이 모델로 수렴. plan.md '★ M1 정본 계약 (1)' 준수.",
+  "type": "object",
+  "required": ["meta", "slides"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["project"],
+      "properties": {
+        "project": {"type": "string"},
+        "pack": {"type": "string", "description": "사용 노하우 팩 이름 (packs/<name>)"},
+        "source_files": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "slides": {"type": "array", "items": {"$ref": "#/$defs/slide"}}
+  },
+  "$defs": {
+    "slide": {
+      "type": "object",
+      "required": ["slide_id", "role"],
+      "additionalProperties": false,
+      "properties": {
+        "slide_id": {"type": "integer", "description": "안정 식별자. 불변식: 모든 단계에서 slide_id 집합 일치"},
+        "role": {"type": "string"},
+        "template_id": {"type": ["string", "null"], "description": "팩 templates.json 키. null=미정"},
+        "title": {"type": "string"},
+        "key_message": {"type": "string"},
+        "body": {"type": "array", "items": {"type": "string"}},
+        "fields": {"type": "object", "description": "템플릿별 가변 payload (templates.json의 required_fields를 채움)"},
+        "example": {"type": "boolean", "description": "W9: 이 슬라이드의 구조 데이터가 '예시/데모'다(근거 없음). true면 렌더에 '예시 데이터' 라벨 + review_needed 자동 태그 + ship 경고. 실데이터 교체(review_resolve fact_supplied)로 해제."},
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source", "fact", "confidence"],
+            "properties": {
+              "source": {"type": "string"},
+              "fact": {"type": "string"},
+              "confidence": {"enum": ["high", "medium", "low"]}
+            }
+          }
+        },
+        "review_needed": {"type": "array", "items": {"type": "string"}},
+        "open_questions": {"type": "array", "items": {"type": "string"}},
+        "style": {"type": "object"},
+        "supports_axis": {"type": "string", "description": "W16(결정 9①): 이 장표가 지지하는 message_map 전략 축의 id(장표→메시지 추적성). 스켈레톤 축 조립 또는 스토리라인이 배정."},
+        "length_band": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2, "description": "W16(결정 9⑤): [최소,최대] 어절 밴드(분량 리듬 목표). 스토리 얇게/근거 두껍게. 강제 아님 — gating_report.length_rhythm이 실측·표면화."},
+        "separate_budget": {"type": ["boolean", "string"], "description": "W16(결정 9④·G5): 실행 장표의 '별도예산/비예산' 표기. 스키마 슬롯일 뿐 자동 생성 금지 — 사람/참조가 채운다."},
+        "emphasis": {"type": "string", "enum": ["hero"], "description": "W31 R9(리허설 마찰17, 결정 2026-07-21): A5(내용 동결) 회의에서 사람이 확정한 디자인 강조 장 표식. 강조=구조 결정이므로 A5에서만 확정하고, 하류(뼈대·이미지)는 소비만 한다. 값은 'hero'만 허용. 없으면 강조 대상 아님(기존 덱 바이트 동일 보존 — supports_axis/length_band와 같은 conditional 규칙)."}
+      }
+    }
+  }
+}

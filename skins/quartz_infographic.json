@@ -1,0 +1,355 @@
+{
+  "_meta": {
+    "name": "quartz_infographic",
+    "label": "예시스튜디오 · 카드형 인포그래픽",
+    "base_skin": "quartz.json",
+    "provenance": "generated_quartz 15-page infographic set",
+    "purpose": "이미지 생성·후처리·렌더 단계에서 크기와 디자인 언어를 고정하는 확장 스킨",
+    "self_contained": true,
+    "note": "색상뿐 아니라 캔버스, 타이포, 여백, 카드, 아이콘, 화살표, 하단 요약 띠와 콘텐츠 분할 정책을 고정한다."
+  },
+  "contract": {
+    "version": "1.0",
+    "strict": true,
+    "immutable": [
+      "canvas.width",
+      "canvas.height",
+      "canvas.aspect_ratio",
+      "typography.family",
+      "typography.sizes",
+      "layout.safe_area",
+      "layout.header",
+      "layout.content",
+      "layout.footer_band",
+      "components.card",
+      "components.section_badge",
+      "components.page_marker",
+      "components.icon",
+      "components.arrow"
+    ],
+    "allowed_variation": [
+      "card_count",
+      "card_illustration_subject",
+      "arrow_path",
+      "content_template",
+      "slide_split_suffix"
+    ]
+  },
+  "canvas": {
+    "width": 1672,
+    "height": 941,
+    "unit": "px",
+    "aspect_ratio": "16:9",
+    "aspect_ratio_decimal": 1.7768,
+    "orientation": "landscape",
+    "background": "FFFFFF",
+    "resize_policy": "contain_then_center_crop_disabled",
+    "upscale_policy": "disabled",
+    "downscale_policy": "disabled",
+    "output_format": "png"
+  },
+  "chrome": {
+    "header_h": 0,
+    "footer_h": 0,
+    "note": "W28 D11/D12 — hun_proposal HTML 크롬 밴드 높이(px). 0이면 이미지 안에 크롬을 그리는 lecture 원본 그대로(생성 px = export, D12 §4 하위호환). >0이면 imagedeck compose가 상단(프로젝트 제목·섹션·페이지)/하단(발주처·제안사 로고) HTML 밴드를 그 높이로 예약하고, 생성 캔버스 = width x (height - header_h - footer_h)로 역산한다. 로고 크롬을 켜려면 예: header_h 88, footer_h 64."
+  },
+  "colors": {
+    "navy": "1E4A8C",
+    "navy_deep": "1F3864",
+    "orange": "F37321",
+    "orange_bright": "FF7900",
+    "orange_deep": "EA5628",
+    "blue_secondary": "156082",
+    "yellow": "FBC44D",
+    "black": "000000",
+    "white": "FFFFFF",
+    "gray_bg": "E8E8E8",
+    "gray_line": "D5D5D5",
+    "gray_text": "595959"
+  },
+  "color_roles": {
+    "canvas": "white",
+    "card_fill": "white",
+    "primary_text": "black",
+    "secondary_text": "gray_text",
+    "title": "navy_deep",
+    "section_badge": "navy",
+    "page_marker_text": "black",
+    "page_marker_fill": "white",
+    "primary_line": "navy",
+    "secondary_line": "gray_line",
+    "decision_highlight": "orange",
+    "warning": "orange_deep",
+    "small_highlight": "yellow",
+    "forbidden_colors": [
+      "olive",
+      "green",
+      "dark_background"
+    ]
+  },
+  "typography": {
+    "family": "Pretendard",
+    "fallback": [
+      "Noto Sans KR",
+      "Arial",
+      "sans-serif"
+    ],
+    "sizes": {
+      "cover_title": 68,
+      "title": 58,
+      "subtitle": 30,
+      "eyebrow": 22,
+      "section_badge": 24,
+      "page_number": 28,
+      "card_number": 28,
+      "card_title": 30,
+      "card_body": 22,
+      "filename": 20,
+      "label": 18,
+      "caption": 17,
+      "footer_summary": 31
+    },
+    "weights": {
+      "cover_title": 800,
+      "title": 800,
+      "subtitle": 500,
+      "eyebrow": 700,
+      "card_title": 700,
+      "card_body": 500,
+      "footer_summary": 700
+    },
+    "line_height": {
+      "title": 1.14,
+      "subtitle": 1.3,
+      "card_title": 1.22,
+      "card_body": 1.42,
+      "footer_summary": 1.28
+    },
+    "shrink_to_fit": false,
+    "auto_font_scaling": false,
+    "minimum_body_size": 22
+  },
+  "layout": {
+    "safe_area": {
+      "top": 22,
+      "right": 28,
+      "bottom": 20,
+      "left": 22
+    },
+    "header": {
+      "x": 22,
+      "y": 22,
+      "width": 1622,
+      "height": 168,
+      "title_center_x": 836,
+      "title_y": 30,
+      "subtitle_y": 118,
+      "title_max_width": 1220,
+      "subtitle_max_width": 1180
+    },
+    "content": {
+      "x": 32,
+      "y": 205,
+      "width": 1608,
+      "height": 560,
+      "horizontal_gap": 36,
+      "vertical_gap": 28,
+      "alignment": "center"
+    },
+    "supporting_line": {
+      "x": 70,
+      "y": 770,
+      "width": 1532,
+      "height": 34
+    },
+    "footer_band": {
+      "x": 32,
+      "y": 810,
+      "width": 1608,
+      "height": 108,
+      "padding_x": 42,
+      "padding_y": 22,
+      "icon_size": 64,
+      "corner_radius": 16
+    }
+  },
+  "components": {
+    "section_badge": {
+      "x": 22,
+      "y": 26,
+      "height": 54,
+      "min_width": 118,
+      "max_width": 250,
+      "padding_x": 28,
+      "corner_radius": 27,
+      "fill": "navy",
+      "text": "white"
+    },
+    "page_marker": {
+      "x": 1574,
+      "y": 25,
+      "width": 68,
+      "height": 68,
+      "corner_radius": 14,
+      "fill": "white",
+      "border": "gray_line",
+      "border_width": 1
+    },
+    "card": {
+      "fill": "white",
+      "border": "gray_line",
+      "border_width": 1,
+      "corner_radius": 18,
+      "shadow": {
+        "enabled": true,
+        "x": 0,
+        "y": 4,
+        "blur": 12,
+        "spread": 0,
+        "color": "000000",
+        "opacity": 0.08
+      },
+      "padding_top": 28,
+      "padding_right": 26,
+      "padding_bottom": 28,
+      "padding_left": 26
+    },
+    "number_badge": {
+      "diameter": 54,
+      "fill": "navy",
+      "text": "white",
+      "border_width": 0
+    },
+    "icon": {
+      "style": "simple_hand_drawn_flat_line",
+      "stroke_width": 2.2,
+      "primary_stroke": "black",
+      "secondary_stroke": "navy",
+      "decision_accent": "orange",
+      "max_width": 240,
+      "max_height": 250,
+      "photorealism": false,
+      "three_dimensional": false
+    },
+    "arrow": {
+      "color": "navy",
+      "stroke_width": 8,
+      "head_length": 22,
+      "head_width": 24,
+      "decision_color": "orange"
+    },
+    "footer_check": {
+      "diameter": 64,
+      "fill": "navy",
+      "check": "white",
+      "decision_variant_fill": "orange"
+    }
+  },
+  "grids": {
+    "two_card": {
+      "columns": 2,
+      "gap": 54,
+      "card_width": 757,
+      "card_height": 540
+    },
+    "three_card": {
+      "columns": 3,
+      "gap": 48,
+      "card_width": 504,
+      "card_height": 540
+    },
+    "four_card": {
+      "columns": 4,
+      "gap": 34,
+      "card_width": 376,
+      "card_height": 540
+    },
+    "five_card": {
+      "columns": 5,
+      "gap": 40,
+      "card_width": 289,
+      "card_height": 545
+    },
+    "twelve_step": {
+      "columns": 6,
+      "rows": 2,
+      "gap_x": 44,
+      "gap_y": 36,
+      "card_width": 232,
+      "card_height": 245,
+      "flow": "serpentine"
+    }
+  },
+  "content_limits": {
+    "title_max_lines": 2,
+    "subtitle_max_lines": 2,
+    "card_title_max_lines": 2,
+    "card_body_max_lines": 4,
+    "footer_summary_max_lines": 2,
+    "two_card_max_chars_per_card": 150,
+    "three_card_max_chars_per_card": 100,
+    "four_card_max_chars_per_card": 72,
+    "five_card_max_chars_per_card": 54,
+    "twelve_step_max_chars_per_card": 22,
+    "filename_max_chars": 26
+  },
+  "overflow_policy": {
+    "strategy": "split_slide",
+    "never": [
+      "resize_canvas",
+      "change_aspect_ratio",
+      "shrink_font",
+      "reduce_safe_area",
+      "overlap_content",
+      "crop_text"
+    ],
+    "split_when": [
+      "content_limit_exceeded",
+      "card_body_exceeds_max_lines",
+      "icon_and_text_collision",
+      "minimum_whitespace_below_24px"
+    ],
+    "split_naming": {
+      "first": "{page}A",
+      "second": "{page}B"
+    },
+    "repeat_on_split": [
+      "section_badge",
+      "page_marker",
+      "title",
+      "subtitle",
+      "palette",
+      "footer_band_style"
+    ]
+  },
+  "generation_rules": {
+    "reference_required": true,
+    "reference_priority": [
+      "layout_and_design_language",
+      "palette",
+      "typography_hierarchy",
+      "icon_style"
+    ],
+    "exact_text_required": true,
+    "invented_content": false,
+    "extra_decorations": false,
+    "gradients": false,
+    "dark_canvas": false,
+    "post_validation": {
+      "check_dimensions": true,
+      "check_aspect_ratio": true,
+      "check_text_bounds": true,
+      "check_overlap": true,
+      "check_forbidden_colors": true,
+      "check_required_regions": true
+    }
+  },
+  "export": {
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "color_space": "sRGB",
+    "alpha": false,
+    "filename_pattern": "{page_number}_{slug}.png"
+  }
+}

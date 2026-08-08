@@ -1,0 +1,20 @@
+{
+  "colors": {
+    "navy": "0091DB",
+    "orange": "2460A2"
+  },
+  "brand": {
+    "client_name": "예시 제조사",
+    "client_logo": null,
+    "placement": {
+      "client": "cover",
+      "proposer": "all"
+    }
+  },
+  "_meta": {
+    "name": "예시_제조사",
+    "provenance": "https://example.com/",
+    "derivation": "institution_research --apply (W26) — brand_tokens.colors.primary/accent → colors.navy/orange(htmlgen._base_css 네이비/오렌지 승격 규약)",
+    "self_contained": false
+  }
+}

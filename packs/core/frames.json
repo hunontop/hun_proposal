@@ -1,0 +1,67 @@
+{
+  "_note": "W21-0 골격(frame) 어휘 — 콘텐츠 영역의 슬롯 분할 계약. 공통 크롬(제목·섹션·정직성 장치)은 엔진층. 정본 설계 = CONTEXT/W21_CATALOG_REBUILD.md §2. 동류 슬롯은 공통 베이스라인 강제(결정 12 AI티 — baseline_group이 같은 슬롯은 상단 정렬선 공유).",
+  "schema_version": 1,
+  "frames": [
+    {
+      "id": "full",
+      "label": "전면 1슬롯",
+      "slots": [{"pos": 1, "size": "full", "baseline_group": null}],
+      "use": "단일 조각이 장을 지배(비교표·매트릭스·비유 hero)"
+    },
+    {
+      "id": "split_v",
+      "label": "좌우 2분할",
+      "variants": ["50:50", "60:40"],
+      "slots": [
+        {"pos": 1, "size": "half", "baseline_group": "row1"},
+        {"pos": 2, "size": "half", "baseline_group": "row1"}
+      ],
+      "use": "전vs후(2-5)·대조(2-2)·텍스트+비주얼"
+    },
+    {
+      "id": "split_h",
+      "label": "상하 2분할",
+      "slots": [
+        {"pos": 1, "size": "wide", "baseline_group": null},
+        {"pos": 2, "size": "wide", "baseline_group": null}
+      ],
+      "use": "이해→신뢰 상하 순서(5-1)·서술→결론(1-4). 상=주장/비유, 하=증명 고정(R3)"
+    },
+    {
+      "id": "grid_2x2",
+      "label": "4칸 그리드",
+      "slots": [
+        {"pos": 1, "size": "quarter", "baseline_group": "row1"},
+        {"pos": 2, "size": "quarter", "baseline_group": "row1"},
+        {"pos": 3, "size": "quarter", "baseline_group": "row2"},
+        {"pos": 4, "size": "quarter", "baseline_group": "row2"}
+      ],
+      "collapse": "빈 슬롯은 억지로 채우지 않고 grid_2x1/row_n으로 축소(R2)",
+      "use": "숫자 4칸(1-2)·기대효과 카드(4-1)"
+    },
+    {
+      "id": "row_n",
+      "label": "1×N 병렬",
+      "n": [2, 4],
+      "slots_template": {"size_by_n": {"2": "half", "3": "third", "4": "quarter"}, "baseline_group": "row1"},
+      "use": "병렬 카드·전략 축. 동류 슬롯 공통 베이스라인 내장(R6)"
+    },
+    {
+      "id": "flow_seq",
+      "label": "좌→우 연결 시퀀스",
+      "n": [2, 5],
+      "connector": "arrow",
+      "slots_template": {"size_by_n": {"2": "half", "3": "third", "4": "quarter", "5": "fifth"}, "baseline_group": "row1"},
+      "use": "흐름(2-2)·3단계(3-3)·프로세스 — 나열이 아니라 연결(3-2). 커넥터는 frame이 그린다(조각 아님·장식 아님 — 관계 인코딩)"
+    },
+    {
+      "id": "hero_body",
+      "label": "대형 강조 + 보조",
+      "slots": [
+        {"pos": 1, "size": "hero", "baseline_group": null},
+        {"pos": 2, "size": "wide", "baseline_group": null}
+      ],
+      "use": "큰 타이포 수치(1-1)+맥락, 비유 한 줄(5-1)+증명"
+    }
+  ]
+}

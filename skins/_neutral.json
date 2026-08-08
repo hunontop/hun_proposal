@@ -1,0 +1,276 @@
+{
+  "_meta": {
+    "name": "_neutral",
+    "label": "중립 템플릿 (하우스 결정값 없는 구조 스켈레톤)",
+    "provenance": "W31 R5 — design_contract의 기본 초안(차용 없음일 때). skins/*.json 창고 스킨과 달리 등록/졸업 대상이 아니다.",
+    "purpose": "특정 색·특정 폰트 취향을 강제하지 않는다. 구조(캔버스·크롬 밴드·장 클래스·본문 규칙)만 정의하고, 가독 기본값(검정 텍스트·백지 배경)만 허용한다.",
+    "self_contained": true,
+    "note": "design_brief.skin.value가 비었을 때 design_contract.build()의 초안으로 쓰인다(용어 정의: '차용이 없으면 중립 템플릿'). 이 파일 자체는 절대 직접 수정 대상이 아니다 — 계약은 run/design_contract.json 쪽에서 조정한다."
+  },
+  "contract": {
+    "version": "1.0",
+    "strict": true,
+    "immutable": [
+      "canvas.width",
+      "canvas.height",
+      "chrome.header_h",
+      "chrome.footer_h",
+      "typography.family",
+      "slide_classes"
+    ],
+    "allowed_variation": [
+      "colors.accent",
+      "variants",
+      "chrome.frame",
+      "card_count",
+      "content_template",
+      "slide_split_suffix"
+    ]
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "unit": "px",
+    "aspect_ratio": "16:9",
+    "orientation": "landscape",
+    "background": "FFFFFF",
+    "resize_policy": "contain_then_center_crop_disabled",
+    "upscale_policy": "disabled",
+    "downscale_policy": "disabled",
+    "output_format": "png"
+  },
+  "chrome": {
+    "header_h": 184,
+    "footer_h": 64,
+    "body_margin": {
+      "x": 64,
+      "top": 24,
+      "bottom": 24,
+      "note": "content 장 본문 이미지 자리의 고정 여백(구조 규칙 — 취향 아님). 이미지는 edge-to-edge로 생성."
+    },
+    "frame": {
+      "width": 0,
+      "color": "accent",
+      "image": null,
+      "note": "바깥 프레임 띠 기본 없음(width=0). 필요하면 run 쪽 조정 채널에서 켠다."
+    },
+    "note": "구조는 inkline과 동일 형태(장 클래스별 헤더/푸터 오버라이드 가능) — 색·폰트만 중립."
+  },
+  "colors": {
+    "ink": "1A1A1A",
+    "ink_deep": "000000",
+    "accent": "6B7280",
+    "bg": "FFFFFF",
+    "paper": "FFFFFF",
+    "gray_text": "5C6470",
+    "line": "DDE1E6",
+    "line_strong": "C9D1DA",
+    "black": "000000",
+    "white": "FFFFFF"
+  },
+  "color_roles": {
+    "canvas": "bg",
+    "card_fill": "paper",
+    "primary_text": "ink_deep",
+    "secondary_text": "gray_text",
+    "title": "ink_deep",
+    "section_badge": "ink",
+    "primary_line": "ink",
+    "secondary_line": "line",
+    "decision_highlight": "accent",
+    "warning": "accent",
+    "forbidden_colors": [
+      "olive",
+      "photorealism_in_infographic_body"
+    ]
+  },
+  "typography": {
+    "family": "sans-serif",
+    "fallback": [
+      "Noto Sans KR",
+      "Malgun Gothic",
+      "sans-serif"
+    ],
+    "sizes": {
+      "cover_title": 76,
+      "cover_label": 22,
+      "title": 44,
+      "subtitle": 21,
+      "section_badge": 22,
+      "page_number": 18,
+      "footer": 18,
+      "toc_title": 28,
+      "toc_sub": 19,
+      "divider_label": 24,
+      "divider_title": 64,
+      "card_title": 30,
+      "card_body": 22,
+      "footer_summary": 30
+    },
+    "weights": {
+      "cover_title": 800,
+      "title": 800,
+      "subtitle": 500,
+      "section_badge": 700,
+      "card_title": 700,
+      "card_body": 500,
+      "footer_summary": 700
+    },
+    "shrink_to_fit": false,
+    "auto_font_scaling": false,
+    "minimum_body_size": 22
+  },
+  "slide_classes": {
+    "content": {
+      "image": "body",
+      "header": true,
+      "footer": true,
+      "note": "기본 장. 이미지 = 본문 콘텐츠만. 섹션배지·제목·부제·페이지·flag 딱지는 HTML 크롬."
+    },
+    "full_image": {
+      "image": "full",
+      "header": false,
+      "footer": "overlay",
+      "note": "전체 이미지 장. 하단 반투명 오버레이 푸터만(프로젝트명·페이지)."
+    },
+    "cover": {
+      "image": "none",
+      "html": "cover",
+      "note": "표지 = 풀 HTML."
+    },
+    "toc": {
+      "image": "none",
+      "html": "toc",
+      "note": "목차 = 풀 HTML."
+    },
+    "divider": {
+      "image": "none",
+      "html": "divider",
+      "header": false,
+      "footer": true,
+      "note": "간지 = 풀 HTML."
+    }
+  },
+  "variants": {
+    "_note": "구간별 스타일 전환 슬롯(비어 있음 — 중립 템플릿은 기본 변형을 선언하지 않는다)."
+  },
+  "layout": {
+    "safe_area": {
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0,
+      "note": "이미지는 edge-to-edge - 바깥 여백을 그리지 않는다."
+    },
+    "content": {
+      "x": 0,
+      "y": 0,
+      "width": 1792,
+      "height": 640,
+      "horizontal_gap": 40,
+      "vertical_gap": 28,
+      "alignment": "center"
+    },
+    "footer_band": {
+      "x": 0,
+      "y": 664,
+      "width": 1792,
+      "height": 120,
+      "padding_x": 42,
+      "padding_y": 20,
+      "icon_size": 60,
+      "corner_radius": 14,
+      "note": "본문 이미지 안의 산출물/결론 띠(구조 규칙 — 크롬 푸터와 별개)."
+    }
+  },
+  "components": {
+    "card": {
+      "fill": "paper",
+      "border": "line",
+      "border_width": 1,
+      "corner_radius": 0,
+      "shadow": {
+        "enabled": false,
+        "x": 0,
+        "y": 0,
+        "blur": 0,
+        "spread": 0,
+        "color": "000000",
+        "opacity": 0
+      },
+      "padding_top": 28,
+      "padding_right": 26,
+      "padding_bottom": 28,
+      "padding_left": 26
+    },
+    "number_badge": {
+      "diameter": 54,
+      "fill": "ink",
+      "text": "white"
+    },
+    "icon": {
+      "style": "simple_flat_line",
+      "stroke_width": 2.2,
+      "primary_stroke": "ink_deep",
+      "secondary_stroke": "ink",
+      "decision_accent": "accent",
+      "photorealism": false,
+      "three_dimensional": false
+    },
+    "arrow": {
+      "color": "ink",
+      "stroke_width": 8,
+      "decision_color": "accent"
+    }
+  },
+  "content_limits": {
+    "card_title_max_lines": 2,
+    "card_body_max_lines": 4,
+    "footer_summary_max_lines": 2,
+    "two_card_max_chars_per_card": 150,
+    "three_card_max_chars_per_card": 100,
+    "four_card_max_chars_per_card": 72,
+    "five_card_max_chars_per_card": 54
+  },
+  "overflow_policy": {
+    "strategy": "split_slide",
+    "never": [
+      "resize_canvas",
+      "change_aspect_ratio",
+      "shrink_font",
+      "reduce_safe_area",
+      "overlap_content",
+      "crop_text"
+    ],
+    "split_naming": {
+      "first": "{page}A",
+      "second": "{page}B"
+    },
+    "repeat_on_split": [
+      "palette",
+      "footer_band_style"
+    ]
+  },
+  "generation_rules": {
+    "reference_required": true,
+    "exact_text_required": true,
+    "invented_content": false,
+    "extra_decorations": false,
+    "gradients": false,
+    "dark_canvas": false,
+    "post_validation": {
+      "check_dimensions": true,
+      "check_text_bounds": true,
+      "check_overlap": true,
+      "check_forbidden_colors": true
+    }
+  },
+  "export": {
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "color_space": "sRGB",
+    "alpha": false,
+    "filename_pattern": "{page_number}_{slug}.png"
+  }
+}

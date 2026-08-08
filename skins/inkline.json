@@ -1,0 +1,276 @@
+{
+  "_meta": {
+    "name": "inkline",
+    "label": "inkline · 하이브리드 크롬 (HTML 헤더/푸터 + 이미지 본문)",
+    "provenance": "W29 하이브리드 크롬 디자인 규칙 - 세션 시안 승인(2026-07-20)",
+    "purpose": "헤더(섹션배지·제목·부제·로고)와 푸터(프로젝트명·페이지)는 HTML 크롬이 조립하고, 본문 콘텐츠만 이미지로 생성하는 기본 스킨. 표지·목차·간지·전체이미지 장은 별도 장 클래스.",
+    "self_contained": true,
+    "note": "디자인지식 근거: 고정틀(로고 우상단·페이지 하단)·배경 미색·강조색 하나·선-구획. accent는 run 브랜드 색으로 교체 가능한 토큰."
+  },
+  "contract": {
+    "version": "1.0",
+    "strict": true,
+    "immutable": [
+      "canvas.width",
+      "canvas.height",
+      "chrome.header_h",
+      "chrome.footer_h",
+      "typography.family",
+      "slide_classes"
+    ],
+    "allowed_variation": [
+      "colors.accent",
+      "variants",
+      "chrome.frame",
+      "card_count",
+      "content_template",
+      "slide_split_suffix"
+    ]
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "unit": "px",
+    "aspect_ratio": "16:9",
+    "orientation": "landscape",
+    "background": "F8F7F4",
+    "resize_policy": "contain_then_center_crop_disabled",
+    "upscale_policy": "disabled",
+    "downscale_policy": "disabled",
+    "output_format": "png"
+  },
+  "chrome": {
+    "header_h": 184,
+    "footer_h": 64,
+    "body_margin": {
+      "x": 64,
+      "top": 24,
+      "bottom": 24,
+      "note": "content 장 본문 이미지 자리의 고정 여백(HTML이 예약 - 페이지간 좌우 여백 일관성). 이미지는 edge-to-edge로 생성하고 여백을 그리지 않는다. x=64는 헤더 텍스트 패딩과 동일(정렬축 통일)."
+    },
+    "frame": {
+      "width": 0,
+      "color": "accent",
+      "image": null,
+      "note": "바깥 프레임 띠(예: K-FESTA 오렌지 테두리). width>0이면 inset 밴드 - 안쪽 전체(크롬+본문)가 줄고 이미지 생성 px도 역산되어 콘텐츠를 가리지 않는다. image에 경로를 주면 단색 대신 이미지 배경이 바깥층에 깔리고(장별 오버라이드 = storyline fields.background_image) 띠·본문 여백으로 자연스럽게 드러난다. 클래스별 opt-out = slide_classes.*.frame=false."
+    },
+    "note": "하이브리드 크롬 기본값. content 장 생성 캔버스 = (1920-64x2) x (1080-184-64-24-24) = 1792x784. 헤더 184 = 배지·제목·부제 + 하단 숨통(~25px). 클래스별/장별 오버라이드 가능(slide_classes.*.header_h/footer_h, storyline slide.chrome_override)."
+  },
+  "colors": {
+    "ink": "16324C",
+    "ink_deep": "0F2438",
+    "accent": "E8590C",
+    "bg": "F8F7F4",
+    "paper": "FFFFFF",
+    "gray_text": "5C6470",
+    "line": "DDE1E6",
+    "line_strong": "C9D1DA",
+    "black": "111111",
+    "white": "FFFFFF"
+  },
+  "color_roles": {
+    "canvas": "bg",
+    "card_fill": "paper",
+    "primary_text": "black",
+    "secondary_text": "gray_text",
+    "title": "ink_deep",
+    "section_badge": "ink",
+    "primary_line": "ink",
+    "secondary_line": "line",
+    "decision_highlight": "accent",
+    "warning": "accent",
+    "forbidden_colors": [
+      "olive",
+      "photorealism_in_infographic_body"
+    ]
+  },
+  "typography": {
+    "family": "Pretendard",
+    "fallback": [
+      "Noto Sans KR",
+      "Malgun Gothic",
+      "sans-serif"
+    ],
+    "sizes": {
+      "cover_title": 76,
+      "cover_label": 22,
+      "title": 44,
+      "subtitle": 21,
+      "section_badge": 22,
+      "page_number": 18,
+      "footer": 18,
+      "toc_title": 28,
+      "toc_sub": 19,
+      "divider_label": 24,
+      "divider_title": 64,
+      "card_title": 30,
+      "card_body": 22,
+      "footer_summary": 30
+    },
+    "weights": {
+      "cover_title": 800,
+      "title": 800,
+      "subtitle": 500,
+      "section_badge": 700,
+      "card_title": 700,
+      "card_body": 500,
+      "footer_summary": 700
+    },
+    "shrink_to_fit": false,
+    "auto_font_scaling": false,
+    "minimum_body_size": 22
+  },
+  "slide_classes": {
+    "content": {
+      "image": "body",
+      "header": true,
+      "footer": true,
+      "note": "기본 장. 이미지 = 본문 콘텐츠만(1792x784, edge-to-edge - 여백은 HTML body_margin이 예약). 섹션배지·제목·부제·페이지·flag 딱지는 HTML 크롬."
+    },
+    "full_image": {
+      "image": "full",
+      "header": false,
+      "footer": "overlay",
+      "note": "전체 이미지 장(lecture 원본 방식·비주얼 히어로). 이미지=1920x1080, 하단 반투명 오버레이 푸터만(프로젝트명·페이지) - 스토리라인 deck_class=full_image로 지정."
+    },
+    "cover": {
+      "image": "none",
+      "html": "cover",
+      "note": "표지 = 풀 HTML. 라벨(공고번호)-제목-accent선-날짜·회사, 로고 우하단. fields.background_image로 전체 배경이미지 옵션."
+    },
+    "toc": {
+      "image": "none",
+      "html": "toc",
+      "note": "목차 = 풀 HTML. 넘버배지 2열 그리드(fields.items 또는 storyline section 자동 도출)."
+    },
+    "divider": {
+      "image": "none",
+      "html": "divider",
+      "header": false,
+      "footer": true,
+      "note": "간지 = 풀 HTML. 대형 숫자 워터마크 + 좌하단 섹션 라벨·제목, 푸터만 유지."
+    }
+  },
+  "variants": {
+    "_note": "구간별 스타일 전환 슬롯(예: K-FESTA 녹색 구간). storyline slide.style_variant=<이름>이면 compose가 해당 토큰으로 크롬 CSS 변수를 덮어쓴다. 예: {\"green\": {\"colors\": {\"ink\": \"1B7A43\", \"accent\": \"FFD43B\"}}}"
+  },
+  "layout": {
+    "safe_area": {
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0,
+      "note": "이미지는 edge-to-edge - 바깥 여백을 그리지 않는다(여백은 HTML chrome.body_margin이 예약, 페이지간 일관성)."
+    },
+    "content": {
+      "x": 0,
+      "y": 0,
+      "width": 1792,
+      "height": 640,
+      "horizontal_gap": 40,
+      "vertical_gap": 28,
+      "alignment": "center"
+    },
+    "footer_band": {
+      "x": 0,
+      "y": 664,
+      "width": 1792,
+      "height": 120,
+      "padding_x": 42,
+      "padding_y": 20,
+      "icon_size": 60,
+      "corner_radius": 14,
+      "note": "본문 이미지 안의 산출물/결론 띠(붉은 박스 하단 띠) - 크롬 푸터와 별개."
+    }
+  },
+  "components": {
+    "card": {
+      "fill": "paper",
+      "border": "line",
+      "border_width": 1,
+      "corner_radius": 16,
+      "shadow": {
+        "enabled": true,
+        "x": 0,
+        "y": 4,
+        "blur": 12,
+        "spread": 0,
+        "color": "000000",
+        "opacity": 0.07
+      },
+      "padding_top": 28,
+      "padding_right": 26,
+      "padding_bottom": 28,
+      "padding_left": 26
+    },
+    "number_badge": {
+      "diameter": 54,
+      "fill": "ink",
+      "text": "white"
+    },
+    "icon": {
+      "style": "simple_flat_line",
+      "stroke_width": 2.2,
+      "primary_stroke": "black",
+      "secondary_stroke": "ink",
+      "decision_accent": "accent",
+      "photorealism": false,
+      "three_dimensional": false
+    },
+    "arrow": {
+      "color": "ink",
+      "stroke_width": 8,
+      "decision_color": "accent"
+    }
+  },
+  "content_limits": {
+    "card_title_max_lines": 2,
+    "card_body_max_lines": 4,
+    "footer_summary_max_lines": 2,
+    "two_card_max_chars_per_card": 150,
+    "three_card_max_chars_per_card": 100,
+    "four_card_max_chars_per_card": 72,
+    "five_card_max_chars_per_card": 54
+  },
+  "overflow_policy": {
+    "strategy": "split_slide",
+    "never": [
+      "resize_canvas",
+      "change_aspect_ratio",
+      "shrink_font",
+      "reduce_safe_area",
+      "overlap_content",
+      "crop_text"
+    ],
+    "split_naming": {
+      "first": "{page}A",
+      "second": "{page}B"
+    },
+    "repeat_on_split": [
+      "palette",
+      "footer_band_style"
+    ]
+  },
+  "generation_rules": {
+    "reference_required": true,
+    "exact_text_required": true,
+    "invented_content": false,
+    "extra_decorations": false,
+    "gradients": false,
+    "dark_canvas": false,
+    "post_validation": {
+      "check_dimensions": true,
+      "check_text_bounds": true,
+      "check_overlap": true,
+      "check_forbidden_colors": true
+    }
+  },
+  "export": {
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "color_space": "sRGB",
+    "alpha": false,
+    "filename_pattern": "{page_number}_{slug}.png"
+  }
+}

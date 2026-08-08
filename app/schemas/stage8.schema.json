@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "stage8.schema.json",
+  "title": "8단계 디자인화 출력",
+  "description": "stage8_design_direction 프롬프트 출력 계약. 정본 SlideModel의 style 오버레이로 어댑트.",
+  "type": "object",
+  "required": ["meta", "slides"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "project": {"type": "string"},
+        "design_guides_used": {"type": "array", "items": {"type": "string"}},
+        "tips_used": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slide_id"],
+        "properties": {
+          "slide_id": {"type": "integer"},
+          "design_intent": {"type": "string"},
+          "visual_prompt": {"type": "string"},
+          "image_prompt": {
+            "type": "object",
+            "properties": {
+              "needed": {"type": "boolean"},
+              "subject": {"type": "string"},
+              "composition": {"type": "string"},
+              "style": {"type": "string"},
+              "avoid": {"type": "array", "items": {"type": "string"}}
+            }
+          },
+          "shape_language": {"type": "string"},
+          "color_direction": {"type": "string"},
+          "typography_direction": {"type": "string"},
+          "reference_translation": {"type": "string"},
+          "anti_patterns_to_check": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

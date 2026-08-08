@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "stage6.schema.json",
+  "title": "6단계 내용확장 출력",
+  "description": "stage6_content_expansion 프롬프트 출력 계약. ingest가 정본 SlideModel로 어댑트.",
+  "type": "object",
+  "required": ["meta", "slides"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "project": {"type": "string"},
+        "source_files": {"type": "array", "items": {"type": "string"}},
+        "open_decisions": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slide_id", "role", "claim"],
+        "properties": {
+          "slide_id": {"type": "integer"},
+          "original_title": {"type": "string"},
+          "role": {"type": "string"},
+          "claim": {"type": "string"},
+          "expanded_body": {"type": "string"},
+          "supporting_points": {"type": "array", "items": {"type": "string"}},
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": {"type": "string"},
+                "quote_or_fact": {"type": "string"},
+                "confidence": {"enum": ["high", "medium", "low"]}
+              }
+            }
+          },
+          "review_needed": {"type": "array", "items": {"type": "string"}},
+          "open_questions": {"type": "array", "items": {"type": "string"}},
+          "copy_candidates": {
+            "type": "object",
+            "properties": {
+              "title": {"type": "string"},
+              "key_message": {"type": "string"},
+              "bullets": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    }
+  }
+}

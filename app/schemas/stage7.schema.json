@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "stage7.schema.json",
+  "title": "7단계 레이아웃 설계 출력",
+  "description": "stage7_layout_planning 프롬프트 출력 계약. selected_template_id는 팩 templates.json의 id여야 함.",
+  "type": "object",
+  "required": ["meta", "slides"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "project": {"type": "string"},
+        "template_catalog_version": {"type": "integer"}
+      }
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slide_id", "selected_template_id"],
+        "properties": {
+          "slide_id": {"type": "integer"},
+          "role": {"type": "string"},
+          "selected_template_id": {"type": "string"},
+          "selection_reason": {"type": "string"},
+          "rejected_templates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "template_id": {"type": "string"},
+                "reason": {"type": "string"}
+              }
+            }
+          },
+          "missing_inputs": {"type": "array", "items": {"type": "string"}},
+          "layout_brief": {"type": "string"},
+          "content_density": {"enum": ["low", "medium", "high"]},
+          "visual_assets_needed": {"type": "array", "items": {"type": "string"}},
+          "review_notes": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

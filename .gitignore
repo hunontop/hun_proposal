@@ -1,0 +1,41 @@
+# 파이썬
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# 시크릿·로컬 상태
+*.env
+.env
+.porter-python
+
+# run 산출물·캐시 (재생성됨) — 내용은 무시하되 **폴더는 남긴다**.
+# 폴더째 무시하면 clone한 사람에게 그 폴더가 아예 없다(코드가 만들어 주는지 매번
+# 확인해야 하는 상태 = 깨끗한 첫 실행의 적). .gitkeep만 예외로 통과시킨다.
+proposal_system/workspace/runs/*
+!proposal_system/workspace/runs/.gitkeep
+proposal_system/workspace/analysis/*
+!proposal_system/workspace/analysis/.gitkeep
+proposal_system/workspace/digest/*
+!proposal_system/workspace/digest/.gitkeep
+proposal_system/workspace/archive/
+proposal_system/vendor/proposal_core/bids.db
+*.log
+
+# 대시보드 로컬 상태(개인 검색·선별 기록 — 저장소에 올리지 않는다)
+dashboard/last_search.json
+dashboard/feedback.json
+dashboard/analysis_cache/
+dashboard/runtime/
+
+# playwright / 로컬 캐시
+.cache/
+
+# OS/에디터
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,19 @@
+{
+  "colors": {
+    "navy": "004388"
+  },
+  "brand": {
+    "client_name": "예시여자대학교",
+    "client_logo": null,
+    "placement": {
+      "client": "cover",
+      "proposer": "all"
+    }
+  },
+  "_meta": {
+    "name": "univ_sample",
+    "provenance": "https://www.univ_sample.ac.kr/univ_sample/intro/vision02.do",
+    "derivation": "institution_research --apply (W26) — brand_tokens.colors.primary/accent → colors.navy/orange(htmlgen._base_css 네이비/오렌지 승격 규약)",
+    "self_contained": false
+  }
+}

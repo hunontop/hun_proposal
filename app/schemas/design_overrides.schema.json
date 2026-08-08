@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "design_overrides.schema.json",
+  "title": "Design Director Overrides (stage9)",
+  "description": "렌더 후 디자인 디렉터 패스 산출물. append-only + css만 → deck.json 본문(사실·수치·검토게이트) 구조적 불변. 슬라이드 키 = slide_id(문자열) 또는 1-기반 인덱스.",
+  "type": "object",
+  "required": ["version", "slides"],
+  "additionalProperties": true,
+  "properties": {
+    "version": { "type": "integer", "enum": [1] },
+    "global_css": { "type": "string" },
+    "slides": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "class": { "type": "string", "description": "섹션에 추가할 class(css 앵커)" },
+          "css": { "type": "string", "description": "슬라이드 스코프 css(#slide-N ...로 스코프 권장)" },
+          "append_html": { "type": "string", "description": "슬라이드 말미 append HTML(장식·이미지 슬롯). append-only." },
+          "image_slots": {
+            "type": "array",
+            "description": "이미지 슬롯(친구협업 이미지생성 대상). role=evidence는 자동생성 금지. layer=background는 treatment 필수(가독성).",
+            "items": {
+              "type": "object",
+              "required": ["id", "role"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string" },
+                "role": { "type": "string", "enum": ["mood", "conceptual", "evidence"] },
+                "layer": { "type": "string", "enum": ["background", "foreground"], "description": "결정 6: background=뒤에 깔고 위에 텍스트(가독성 treatment 필수). 기본 foreground." },
+                "format": { "type": "string", "enum": ["svg", "png", "jpg", "jpeg"], "description": "결정 5: 내용이 정한다 — 아이콘·도형=svg / 투명=png / 사진풍·풀블리드 배경=jpg. 기본 svg." },
+                "prompt": { "type": "string" },
+                "path": { "type": "string", "description": "규약 밖 실자산 경로(예: docs/assets/shots/…). 지정 시 생성 대신 임베드." },
+                "treatment": { "type": "string", "description": "무드=어둡게·흐리게·오버레이 35~60% / 근거=흐림 금지 / background=오버레이·그라디언트·반투명 패널(가독성)" }
+              }
+            }
+          },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

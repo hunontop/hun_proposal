@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "company_id": "gaon-systems",
+  "fictional": true,
+  "overview": {
+    "name": {"value": "(주)가온시스템즈 [가상]", "source": "리허설 시드"},
+    "founded": {"value": "2011년", "source": "리허설 시드"},
+    "scale": {"value": "임직원 68명 · 연매출 92억원(2025년 기준)", "source": "리허설 시드"},
+    "intro": {
+      "value": "공공·교육 부문 정보시스템 구축·운영에 특화한 SI 전문기업. 클라우드 전환과 정보보안 컨설팅을 병행하며 나라장터 SI 용역에 다수 참여해왔다.",
+      "source": "리허설 시드"
+    }
+  },
+  "strengths": [
+    {"value": "공공기관 대상 정보시스템 구축·운영(SM) 10년 이상 연속 수행 이력", "source": "리허설 시드"},
+    {"value": "ISO 27001 기반 정보보안 관리체계 자체 보유 — 개인정보·보안 감리 대응 즉시 가능", "source": "리허설 시드"},
+    {"value": "자체 클라우드 전환 방법론(3단계 마이그레이션 프레임워크) 보유", "source": "리허설 시드"}
+  ],
+  "track_records": [
+    {"client": "A교육청", "description": "학생정보시스템 고도화 및 클라우드 이전", "metric": "장애 0건 · 응답속도 40% 개선", "period": "2023", "source": "리허설 시드"},
+    {"client": "B공사", "description": "노후 전산망 통합 및 보안관제 체계 구축", "metric": "구축 후 18개월 보안사고 0건", "period": "2022", "source": "리허설 시드"},
+    {"client": "C시청", "description": "행정정보시스템 유지보수(SM) 및 헬프데스크 운영", "metric": "SLA 준수율 99.2%", "period": "2021~2024", "source": "리허설 시드"},
+    {"client": "D의료원", "description": "의료정보시스템(OCS) 연계 모듈 개발", "metric": "처리시간 30% 단축", "period": "2020", "source": "리허설 시드"}
+  ],
+  "people": [
+    {"name": "김도현", "role": "PM/사업총괄", "expertise": "공공 SI 사업관리 15년", "source": "리허설 시드"},
+    {"name": "이서연", "role": "기술리더", "expertise": "클라우드 아키텍처(AWS/Azure)", "source": "리허설 시드"},
+    {"name": "박준영", "role": "보안담당", "expertise": "정보보호관리체계(ISMS-P) 심사원", "source": "리허설 시드"},
+    {"name": "최민지", "role": "QA리더", "expertise": "품질보증·테스트 자동화", "source": "리허설 시드"},
+    {"name": "정하은", "role": "개발리더", "expertise": "백엔드(Java/Spring)·DB설계", "source": "리허설 시드"}
+  ],
+  "organization": {
+    "lead": {"name": "김도현", "description": "사업총괄 PM", "source": "리허설 시드"},
+    "teams": [
+      {"name": "개발팀", "roles": ["백엔드 개발", "프론트엔드 개발", "DB 설계"], "source": "리허설 시드"},
+      {"name": "인프라팀", "roles": ["클라우드 운영", "보안관제"], "source": "리허설 시드"},
+      {"name": "품질관리팀", "roles": ["테스트", "품질보증"], "source": "리허설 시드"}
+    ]
+  },
+  "certifications": [
+    {"value": "ISO 27001(정보보안경영시스템)", "source": "리허설 시드"},
+    {"value": "정보통신공사업 등록", "source": "리허설 시드"}
+  ]
+}

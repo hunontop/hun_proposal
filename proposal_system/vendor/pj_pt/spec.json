@@ -1,0 +1,40 @@
+{
+  "_comment": "PPT 자동화 표준셋 — 버전 A. 제안서 슬라이드 컴포넌트의 공유 디자인 토큰.",
+  "version": "A",
+  "canvas": { "width_cm": 27.52, "height_cm": 19.05 },
+  "colors": {
+    "navy": "1E4A8C",
+    "orange": "F37321",
+    "orange_bright": "FF7900",
+    "black": "000000",
+    "white": "FFFFFF",
+    "blue2": "156082",
+    "gray_bg": "E8E8E8",
+    "gray_line": "D5D5D5",
+    "gray_text": "595959",
+    "purple": "7E28E1",
+    "yellow": "FBC44D",
+    "red": "FF0000"
+  },
+  "fonts": {
+    "title": "Pretendard Black",
+    "heading": "Pretendard ExtraBold",
+    "subhead": "Pretendard SemiBold",
+    "body": "Pretendard Medium",
+    "caption": "Pretendard Light"
+  },
+  "type_scale_pt": { "title": 54, "heading": 32, "subhead": 22, "body": 16, "caption": 12 },
+  "layout": {
+    "margin_cm": 1.0,
+    "header_height_cm": 0.82,
+    "title_top_cm": 2.1,
+    "content_top_cm": 4.2,
+    "page_number_top_cm": 18.1
+  },
+  "components": [
+    "header_bar", "cover", "toc", "section_cover", "subsection_cover",
+    "problem_intro", "data_chart", "contrast_diagram", "card_grid",
+    "storyboard", "timeline_matrix", "table_block", "process_steps",
+    "map_block", "person_cards", "org_chart", "portfolio_case", "closing_matrix"
+  ]
+}

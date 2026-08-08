@@ -1,0 +1,133 @@
+[
+  {
+    "id": "cover_cinematic",
+    "label": "표지",
+    "role": "cover",
+    "required_fields": ["project_title", "concept_message", "visual_subject"],
+    "renderer": "cover"
+  },
+  {
+    "id": "cover_slide",
+    "label": "표지(텍스트)",
+    "role": "cover",
+    "required_fields": ["project_title", "concept_message"],
+    "renderer": "cover",
+    "note": "문서 프레임 표지(D23) — 이미지 의존 없는 텍스트 우선 변형. 기존 cover 렌더러 재사용(visual_subject 불요)."
+  },
+  {
+    "id": "agenda",
+    "label": "목차",
+    "role": "agenda",
+    "required_fields": ["items"],
+    "renderer": "agenda",
+    "note": "문서 프레임 목차(D23) — 대목차 섹션 제목 자동 조립(items). 지어내기 0."
+  },
+  {
+    "id": "closing_thanks",
+    "label": "끝인사",
+    "role": "endcard",
+    "required_fields": [],
+    "renderer": "endcard",
+    "note": "문서 프레임 끝인사(D23) — 정적 감사 문구. G6 마무리(closing)와 다른 role/렌더 경로(충돌 방지)."
+  },
+  {
+    "id": "problem_questions",
+    "label": "질문 스택",
+    "role": "problem_intro",
+    "required_fields": ["core_question", "sub_questions"],
+    "renderer": "problem_intro"
+  },
+  {
+    "id": "executive_summary",
+    "label": "요약 카드그리드",
+    "role": "summary",
+    "required_fields": ["main_claim", "supporting_points"],
+    "renderer": "card_grid"
+  },
+  {
+    "id": "data_interpretation",
+    "label": "수치 강조",
+    "role": "data",
+    "required_fields": ["metric", "comparison", "interpretation"],
+    "renderer": "data_chart"
+  },
+  {
+    "id": "contrast_as_is_to_be",
+    "label": "대비(As-Is/To-Be)",
+    "role": "contrast",
+    "required_fields": ["as_is", "to_be", "transition_message"],
+    "renderer": "contrast_diagram"
+  },
+  {
+    "id": "strategy_pillars",
+    "label": "축 카드",
+    "role": "strategy",
+    "required_fields": ["pillars", "one_line_per_pillar"],
+    "renderer": "strategy"
+  },
+  {
+    "id": "roadmap_gantt",
+    "label": "타임라인 매트릭스",
+    "role": "roadmap",
+    "required_fields": ["time_units", "workstreams", "milestones"],
+    "renderer": "timeline_matrix"
+  },
+  {
+    "id": "process_steps",
+    "label": "프로세스",
+    "role": "process",
+    "required_fields": ["steps", "outputs"],
+    "renderer": "process_steps"
+  },
+  {
+    "id": "matrix_priority",
+    "label": "2축 매트릭스",
+    "role": "decision",
+    "required_fields": ["x_axis", "y_axis", "items"],
+    "renderer": null,
+    "note": "2축 좌표에 항목을 배치하는 빌더가 없음(승계 — 렌더러 미구현)."
+  },
+  {
+    "id": "comparison_table",
+    "label": "비교표",
+    "role": "comparison",
+    "required_fields": ["options", "criteria", "recommendation"],
+    "renderer": "table_block"
+  },
+  {
+    "id": "image_board",
+    "label": "이미지 보드",
+    "role": "evidence_visual",
+    "required_fields": ["images", "captions", "takeaway"],
+    "renderer": null,
+    "note": "다중 이미지와 캡션을 배치하는 빌더가 없음(승계 — 렌더러 미구현)."
+  },
+  {
+    "id": "org_roles",
+    "label": "조직도",
+    "role": "organization",
+    "required_fields": ["teams", "roles", "lead"],
+    "renderer": "org_chart"
+  },
+  {
+    "id": "risk_dashboard",
+    "label": "리스크 표",
+    "role": "risk",
+    "required_fields": ["risks", "severity", "mitigations"],
+    "renderer": "table_block"
+  },
+  {
+    "id": "portfolio_cases",
+    "label": "사례 카드",
+    "role": "portfolio",
+    "required_fields": ["cases", "metrics", "client_safe_names"],
+    "renderer": "portfolio_case"
+  },
+  {
+    "id": "closing_matrix",
+    "label": "마무리 매트릭스",
+    "role": "closing",
+    "required_fields": ["commitments", "proof_points"],
+    "renderer": "closing_matrix"
+  }
+]

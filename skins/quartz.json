@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "name": "quartz",
+    "label": "예시스튜디오",
+    "provenance": "<개발 원본 전용 경로>",
+    "derivation": "app/skin_extract.py 결정론적 추출 + 색 역할 큐레이션(경제형.md 교차검증). Phase 1-B B3에서 house_a 1차 병합분을 독립 스킨으로 역분리.",
+    "self_contained": true,
+    "note": "self-contained 스킨 = 어떤 base(house_a/house_b)와도 캐스케이드 합성 가능. 색 이름은 렌더러 어휘. provenance는 기록용(지워도 렌더 무변) — 어떤 코드도 _meta를 읽지 않는다(2026-07-08 실측)."
+  },
+  "colors": {
+    "navy": "1E4A8C",
+    "orange": "F37321",
+    "orange_bright": "FF7900",
+    "orange_deep": "EA5628",
+    "blue2": "156082",
+    "yellow": "FBC44D",
+    "red": "FF0000",
+    "black": "000000",
+    "white": "FFFFFF",
+    "gray_bg": "E8E8E8",
+    "gray_line": "D5D5D5",
+    "gray_text": "595959",
+    "section_cover": "1F3864"
+  },
+  "fonts": {
+    "family": "Pretendard",
+    "sizes": {
+      "title": 54,
+      "section": 32,
+      "body": 16,
+      "label": 14,
+      "small": 12,
+      "caption": 10,
+      "footer": 10
+    }
+  }
+}

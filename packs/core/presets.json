@@ -1,0 +1,19 @@
+{
+  "_note": "W21-0 프리셋 어휘 — 의무 규범 프리셋(동급 참여, 결정 12 후속). preset = 이름 붙은 frame×piece 조합일 뿐 특권 없음: 결정기가 그대로 쓰거나 해체·변형 가능(§6 이행 표). cover_cinematic은 커버 크롬 특수성으로 template 경로 존치(프리셋화 대상 아님). 정본 설계 = CONTEXT/W21_CATALOG_REBUILD.md §6.",
+  "schema_version": 1,
+  "presets": [
+    {"id": "executive_summary", "label": "제안개요(복창 의무)", "source": "RFP 작성요령 서식",
+     "frame": "hero_body", "rendition": "boxed",
+     "slots": [{"piece": "text_block", "size": "hero", "binds": "main_claim"},
+               {"piece": "text_block", "size": "wide", "binds": "supporting_points"}]},
+    {"id": "problem_questions", "label": "고민 오프닝", "source": "장르 규범 G1", "frame": "hero_body",
+     "slots": [{"piece": "text_block", "size": "hero", "binds": "core_question"},
+               {"piece": "text_block", "size": "wide", "binds": "sub_questions"}]},
+    {"id": "org_roles", "label": "추진조직·R&R(의무)", "source": "RFP 작성요령 서식(P5.4)", "frame": "full",
+     "slots": [{"piece": "org_table", "size": "full", "binds": "*"}]},
+    {"id": "portfolio_cases", "label": "유사 실적(의무)", "source": "RFP 작성요령 서식", "frame": "full",
+     "slots": [{"piece": "case_card", "size": "full", "binds": "*"}]},
+    {"id": "roadmap_gantt", "label": "추진일정(의무)", "source": "RFP 작성요령 서식", "frame": "full",
+     "slots": [{"piece": "timeline_gantt", "size": "full", "binds": "*"}]}
+  ]
+}

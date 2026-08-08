@@ -1,0 +1,202 @@
+{
+  "id": "public_proposal_core",
+  "label": "공공 제안 (중립 코어)",
+  "pack": "core",
+  "description": "정부/공공 제안서의 중립 기본 골격 - RFP 작성요령 의무 서식만(수주덱 채굴 지식 미포함, 목표조정 2). 하우스/채굴 골격은 --scenario public_proposal(opt-in). core(중립 코어) 카탈로그(templates.json)를 결정론으로 조립. level1=대목차 의무 골격 선언(RFP 작성요령 서식 순서 Ⅰ~Ⅳ).",
+  "source": "proposal_system/scenarios/public_proposal.json(W28 중립화 사본) + packs/core/templates.json",
+  "slides": [
+    {
+      "section": "표지",
+      "title": "[예시] 제안서 표지 — 사업명이 들어갈 자리",
+      "message": "[예시] 제안을 관통하는 단일 컨셉/슬로건 한 줄",
+      "template_id": "cover_cinematic",
+      "note": "발주처가 처음 마주하는 장표 — 사업명과 제안 전체를 관통하는 단일 컨셉을 한 눈에.",
+      "bullets": ["[예시] 제안사명 · 제출일"],
+      "fields": {
+        "project_title": "[예시] ○○기관 20XX 기획홍보 사업",
+        "concept_message": "[예시] 전 캠페인을 관통하는 슬로건",
+        "visual_subject": "[예시] 표지 이미지 주제(문구)"
+      }
+    },
+    {
+      "section": "요약",
+      "title": "[예시] 제안 요약 — 한 장으로 보는 우리의 답",
+      "message": "[예시] 이 제안의 핵심 주장 한 줄",
+      "template_id": "executive_summary",
+      "note": "바쁜 평가자가 한 장으로 제안의 뼈대를 잡도록. 이후 장표의 예고.",
+      "bullets": ["[예시] 요약 포인트가 들어갈 자리"],
+      "fields": {
+        "main_claim": "[예시] 제안의 핵심 주장 한 줄",
+        "supporting_points": [
+          "[예시] 근거 1 — 실데이터로 교체 필요",
+          "[예시] 근거 2 — 실데이터로 교체 필요",
+          "[예시] 근거 3 — 실데이터로 교체 필요"
+        ]
+      }
+    },
+    {
+      "section": "데이터",
+      "title": "[예시] 현황·실태 진단",
+      "message": "[예시] 정량 근거로 문제를 규정한다",
+      "template_id": "data_interpretation",
+      "note": "국민인식조사·실태분석 등 정량 근거로 문제를 규정(데이터 기반 진단). 그래프 구조를 예시 데이터로 미리 보여준다.",
+      "bullets": ["[예시] 데이터 해석이 들어갈 자리"],
+      "fields": {
+        "metric": "[예시] 지표 이름(예: 인지도)",
+        "comparison": [
+          {"label": "[예시] 현재", "value": 32},
+          {"label": "[예시] 목표", "value": 70}
+        ],
+        "interpretation": [
+          "[예시] 수치가 의미하는 바 한 줄 — 실데이터로 교체 필요"
+        ]
+      }
+    },
+    {
+      "section": "전환",
+      "title": "[예시] As-Is → To-Be",
+      "message": "[예시] 현재에서 목표로의 전환 한 줄",
+      "template_id": "contrast_as_is_to_be",
+      "note": "현재 상태와 목표 상태를 대비해 이 사업이 만드는 변화(전환)를 명료화한다.",
+      "bullets": ["[예시] 전환 포인트가 들어갈 자리"],
+      "fields": {
+        "as_is": "[예시] 현재 상태 — 실데이터로 교체 필요",
+        "to_be": "[예시] 목표 상태 — 실데이터로 교체 필요",
+        "transition_message": "[예시] 전환의 핵심 메시지"
+      }
+    },
+    {
+      "section": "전략",
+      "title": "[예시] 핵심 추진 전략",
+      "message": "[예시] 실행을 2~3개 전략으로 묶는다",
+      "template_id": "strategy_pillars",
+      "note": "선택과 집중 — 실행을 2~3개 전략축으로 묶어 메시지를 명료화.",
+      "bullets": ["[예시] 전략축이 들어갈 자리"],
+      "fields": {
+        "pillars": ["[예시] 전략 1", "[예시] 전략 2", "[예시] 전략 3"],
+        "one_line_per_pillar": [
+          "[예시] 전략 1 한 줄 설명 — 실데이터로 교체 필요",
+          "[예시] 전략 2 한 줄 설명 — 실데이터로 교체 필요",
+          "[예시] 전략 3 한 줄 설명 — 실데이터로 교체 필요"
+        ]
+      }
+    },
+    {
+      "section": "일정",
+      "title": "[예시] 추진 일정·로드맵",
+      "message": "[예시] 단계별 추진 일정",
+      "template_id": "roadmap_gantt",
+      "note": "업무별·시기별 추진 계획을 간트로 — 실현가능성과 사업관리 역량을 보여준다. 구조를 예시 데이터로 미리 보여준다.",
+      "bullets": ["[예시] 일정이 들어갈 자리"],
+      "fields": {
+        "time_units": ["[예시] 1분기", "[예시] 2분기", "[예시] 3분기", "[예시] 4분기"],
+        "workstreams": [
+          {"label": "[예시] 기획", "cells": [true, true, false, false]},
+          {"label": "[예시] 실행", "cells": [false, true, true, true]},
+          {"label": "[예시] 성과관리", "cells": [false, false, true, true]}
+        ],
+        "milestones": [
+          {"time_unit": "[예시] 2분기", "label": "[예시] 중간보고"},
+          {"time_unit": "[예시] 4분기", "label": "[예시] 최종보고"}
+        ]
+      }
+    },
+    {
+      "section": "프로세스",
+      "title": "[예시] 수행 프로세스",
+      "message": "[예시] 3~5단계 수행 절차",
+      "template_id": "process_steps",
+      "note": "과업을 단계별 프로세스로 구조화해 수행계획의 구체성을 입증한다.",
+      "bullets": ["[예시] 프로세스 단계가 들어갈 자리"],
+      "fields": {
+        "steps": [
+          {"label": "[예시] 1단계", "description": "[예시] 단계 설명 — 실데이터로 교체 필요"},
+          {"label": "[예시] 2단계", "description": "[예시] 단계 설명 — 실데이터로 교체 필요"},
+          {"label": "[예시] 3단계", "description": "[예시] 단계 설명 — 실데이터로 교체 필요"}
+        ],
+        "outputs": ["[예시] 산출물 1", "[예시] 산출물 2", "[예시] 산출물 3"]
+      }
+    },
+    {
+      "section": "조직",
+      "title": "[예시] 추진 조직·R&R",
+      "message": "[예시] 총괄과 팀별 역할",
+      "template_id": "org_roles",
+      "note": "투입 인력과 팀별 R&R을 조직도로 — 사업관리 역량과 전문성을 입증(정량평가 대응).",
+      "bullets": ["[예시] 조직 구성이 들어갈 자리"],
+      "fields": {
+        "lead": "[예시] 총괄 PM",
+        "teams": ["[예시] 기획팀", "[예시] 실행팀", "[예시] 성과팀"],
+        "roles": [
+          "[예시] 총괄 PM: 전체 총괄 — 실데이터로 교체 필요",
+          "[예시] 기획팀: 전략 수립 — 실데이터로 교체 필요",
+          "[예시] 실행팀: 캠페인 운영 — 실데이터로 교체 필요",
+          "[예시] 성과팀: 모니터링·효과조사 — 실데이터로 교체 필요"
+        ]
+      }
+    },
+    {
+      "section": "리스크",
+      "title": "[예시] 리스크 관리",
+      "message": "[예시] 주요 리스크와 대응",
+      "template_id": "risk_dashboard",
+      "note": "예상 리스크와 대응책을 미리 제시해 관리력을 입증한다. 표 구조를 예시 데이터로 미리 보여준다.",
+      "bullets": ["[예시] 리스크가 들어갈 자리"],
+      "fields": {
+        "risks": [
+          {"name": "[예시] 리스크 1", "severity": "높음", "mitigation": "[예시] 대응책 — 실데이터로 교체 필요"},
+          {"name": "[예시] 리스크 2", "severity": "중간", "mitigation": "[예시] 대응책 — 실데이터로 교체 필요"}
+        ],
+        "severity": ["높음", "중간"],
+        "mitigations": ["[예시] 대응책 1", "[예시] 대응책 2"]
+      }
+    },
+    {
+      "section": "실적",
+      "title": "[예시] 유사 수행 실적",
+      "message": "[예시] 검증된 수행 경험",
+      "template_id": "portfolio_cases",
+      "note": "유사 사업 수행 실적으로 전문성·신뢰성을 증빙(정량평가 대응). 사례 구조를 예시 데이터로 미리 보여준다.",
+      "bullets": ["[예시] 실적 사례가 들어갈 자리"],
+      "fields": {
+        "cases": [
+          "[예시] 사례 1: 유사 사업명 — 실데이터로 교체 필요",
+          "[예시] 사례 2: 유사 사업명 — 실데이터로 교체 필요",
+          "[예시] 사례 3: 유사 사업명 — 실데이터로 교체 필요"
+        ],
+        "metrics": ["[예시] 성과지표 1", "[예시] 성과지표 2"],
+        "client_safe_names": ["[예시] 고객 A(익명)", "[예시] 고객 B(익명)"]
+      }
+    },
+    {
+      "section": "마무리",
+      "title": "[예시] 마무리 — 이행 약속",
+      "message": "[예시] 성과를 측정·조사로 닫아 신뢰를 축적한다",
+      "template_id": "process_steps",
+      "note": "마무리 슬롯(중립). G6 성과관리 닫기 관성은 opt-in 오버레이로 이동(목표조정 2).",
+      "bullets": ["[예시] 성과지표·효과조사 계획이 들어갈 자리"],
+      "fields": {
+        "steps": [
+          {"label": "[예시] 성과지표 설정", "description": "[예시] KPI 정의 — 실데이터로 교체 필요"},
+          {"label": "[예시] 효과조사 실행", "description": "[예시] 인지도·만족도 조사 — 실데이터로 교체 필요"},
+          {"label": "[예시] 환류·개선", "description": "[예시] 결과 환류 — 실데이터로 교체 필요"}
+        ],
+        "outputs": ["[예시] 성과보고서", "[예시] 효과조사 결과"]
+      }
+    }
+  ],
+  "level1": [
+    {"section": "표지", "title": "[예시] 제안서 표지 — 사업명이 들어갈 자리", "message": "[예시] 제안을 관통하는 단일 컨셉 한 줄", "template_id": "cover_slide", "role": "cover", "frame": "cover", "length_band": [20, 70], "fields": {"project_title": "[예시] ○○기관 사업 제안", "concept_message": "[예시] 제안을 관통하는 단일 컨셉 한 줄"}, "note": "문서 프레임 의무 슬롯(D23 개정) — 발주처가 처음 마주하는 표지(role=cover → 클라이언트 브랜드 마크 자리 자동 활성). 제안명=message_map/분석이 채움, 지어내기 0."},
+    {"section": "목차", "title": "[예시] 목차", "template_id": "agenda", "role": "agenda", "frame": "agenda", "length_band": [20, 70], "note": "문서 프레임 의무 슬롯(D23 개정) — 대목차(Level 1) 섹션 제목 자동 조립(지어내기 0). items는 골격이 채운다."},
+    {"section": "제안개요", "title": "[예시] Ⅰ. 제안 개요 — 사업 이해 복창", "template_id": "executive_summary", "role": "overview", "mandatory": true, "length_band": [20, 70], "note": "복창 의무 슬롯(RFP 작성요령 서식 — 협상 불가, SEED-2 §8.1). 발주 요구를 우리 언어로 복창해 이해를 증명."},
+    {"section": "제안업체", "title": "[예시] Ⅱ. 제안업체 일반현황·특장점", "template_id": "portfolio_cases", "role": "company", "length_band": [80, 220], "note": "제안업체 일반현황(RFP 의무 서식). Ⅱ.제안업체 일반 부문."},
+    {"section": "사업관리", "title": "[예시] Ⅲ. 사업관리 — 추진조직·일정", "template_id": "org_roles", "role": "management", "length_band": [80, 220], "note": "추진조직·R&R·추진일정(실현가능성·사업관리 역량 증명, P5.4). Ⅲ.사업관리 부문."},
+    {"axis_groups": true, "section": "사업내용", "note": "Ⅳ. 사업내용 — message_map 전략 축별 전략+근거 장표가 여기 조립된다(Level 2 서사 자유)."},
+    {"section": "마무리", "title": "[예시] 마무리 — 이행 약속", "template_id": "process_steps", "role": "closing", "length_band": [20, 70], "note": "마무리 슬롯(중립). G6 성과관리 닫기 관성은 opt-in 오버레이로 이동(목표조정 2)."},
+    {"section": "끝인사", "title": "감사합니다", "template_id": "closing_thanks", "role": "endcard", "frame": "closing", "length_band": [20, 70], "note": "문서 프레임 의무 슬롯(D23 개정) — 명시 끝인사(감사합니다 / End of document). G6 마무리 뒤 별도 슬롯(발표덱 관례). 정적 문구, 지어내기 0."}
+  ],
+  "level1_note": "대목차(Level 1)는 RFP 작성요령 서식을 따르는 협상 불가 의무 골격이다(결정 9①④). message_map이 있으면 skeleton이 이 골격 + 축별 사업내용으로 조립한다. axis_groups=true 자리에 전략 축이 들어간다. 수주덱 채굴 지식(G계열)은 house_knowledge=\"gseries\" 지정 시에만 오버레이로 복원된다(W28).",
+  "optional_slide_attrs": {
+    "separate_budget": "G5(결정 9④·SEED-2 G5) — 실행 장표의 '별도예산/비예산' 표기. 예산 상한을 지키며 제안 물량을 늘리는 공공 제안 협상 장치. **스키마 슬롯일 뿐 자동 생성 금지** — 사실이라 사람/참조가 채운다(true|false 또는 표기 문자열)."
+  }
+}

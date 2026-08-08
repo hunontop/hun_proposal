@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>제안 자동화 시연 콕핏</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  :root{
+    --ink:#0c1a2b; --muted:#667085; --line:#e7ebf2; --bg:#f4f6fa; --card:#fff;
+    --blue:#2a6fdb; --blue-d:#1d54b8; --green:#10b981; --red:#e0413a; --amber:#f59e0b;
+    --grad:linear-gradient(135deg,#2a6fdb 0%,#1d54b8 55%,#133a8a 100%);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;padding:30px;}
+  .wrap{max-width:1200px;margin:0 auto;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  h1{font-size:30px;font-weight:800;margin:0;letter-spacing:-0.02em;}
+  h1 .b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .made{font-size:14px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;}
+
+  .top{display:grid;grid-template-columns:1fr 1.3fr 200px;gap:16px;align-items:stretch;margin-bottom:22px;}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;}
+  .box .k{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:8px;}
+  .box .rfp{font-size:17px;font-weight:700;line-height:1.4;}
+  .box .rfp small{display:block;color:var(--muted);font-weight:500;font-size:14px;margin-top:6px;}
+  .prompt{background:#0c1a2b;color:#e8eefc;border:0;}
+  .prompt .k{color:#6691f5;}
+  .prompt .p{font-size:16px;line-height:1.5;}
+  .prompt .p .y{color:#ffd166;font-weight:700;}
+  .runbox{display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  #runBtn{border:0;border-radius:14px;padding:0;height:100%;min-height:96px;background:var(--grad);color:#fff;
+    font-size:24px;font-weight:800;cursor:pointer;transition:.15s;box-shadow:0 8px 20px rgba(42,111,219,.3);}
+  #runBtn:active{transform:scale(.98);}
+  #runBtn:disabled{opacity:.5;cursor:not-allowed;}
+
+  .stages{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
+  .stage{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:22px 16px;text-align:center;transition:.25s;position:relative;}
+  .stage .dot{width:14px;height:14px;border-radius:50%;background:var(--line);margin:0 auto 12px;transition:.25s;}
+  .stage .t{font-size:24px;font-weight:800;letter-spacing:-0.02em;}
+  .stage .s{font-size:14px;color:var(--muted);margin-top:4px;}
+  .stage .who{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;margin-top:10px;display:inline-block;background:#eef1f6;color:var(--muted);}
+  .stage.human .who{background:#fdecec;color:var(--red);}
+  .stage.active{border-color:var(--blue);box-shadow:0 6px 18px rgba(42,111,219,.18);}
+  .stage.active .dot{background:var(--amber);box-shadow:0 0 0 5px rgba(245,158,11,.22);animation:pulse 1s infinite;}
+  .stage.done{border-color:var(--green);}
+  .stage.done .dot{background:var(--green);}
+  .stage.done .dot::after{content:"✓";color:#fff;font-size:10px;position:absolute;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
+  .log{background:#0c1a2b;color:#9be29b;border-radius:16px;padding:20px 22px;font-family:'Consolas','D2Coding',monospace;font-size:14px;line-height:1.7;height:280px;overflow-y:auto;white-space:pre-wrap;}
+  .log .sys{color:#6691f5;} .log .err{color:#ff8a8a;}
+  .result{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px;justify-content:center;}
+  .result .ph{color:var(--muted);font-size:15px;text-align:center;}
+  .result.ok{background:linear-gradient(135deg,#eaf1ff,#d8e6ff);border-color:#6691f5;}
+  .result h3{margin:0;font-size:22px;font-weight:800;}
+  .result .meta{font-size:15px;color:var(--ink);line-height:1.6;}
+  .result .meta b{color:var(--blue-d);}
+  .pill{display:inline-block;font-size:13px;font-weight:700;color:var(--red);background:#fdecec;border-radius:999px;padding:4px 12px;}
+
+  /* 키워드 검색 → 공고 목록 */
+  .search{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+  .search input{flex:1;min-width:240px;font-size:17px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:#fff;font-family:inherit;}
+  .search input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(42,111,219,.15);}
+  #searchBtn{font-size:17px;font-weight:800;color:#fff;background:var(--grad);border:0;border-radius:12px;padding:13px 22px;cursor:pointer;white-space:nowrap;box-shadow:0 6px 16px rgba(42,111,219,.28);}
+  #searchBtn:disabled{opacity:.55;cursor:not-allowed;}
+  #searchMeta{font-size:14px;color:var(--muted);font-weight:700;}
+  .bidlist{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px;margin-bottom:22px;max-height:300px;overflow-y:auto;}
+  .bidlist .ph{color:var(--muted);font-size:15px;text-align:center;padding:34px 0;}
+  .bidlist .ph.err{color:var(--red);font-weight:700;}
+  table.bt{width:100%;border-collapse:collapse;font-size:14px;}
+  table.bt th{position:sticky;top:0;background:#f4f6fa;color:var(--muted);font-weight:700;font-size:12px;text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);}
+  table.bt td{padding:11px 12px;border-bottom:1px solid #eef1f6;vertical-align:top;line-height:1.4;}
+  table.bt tr:last-child td{border-bottom:0;}
+  table.bt td.nm{font-weight:700;color:var(--ink);}
+  table.bt td.urgent{color:var(--red);font-weight:800;white-space:nowrap;}
+  table.bt td.dt{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  table.bt tbody tr{cursor:pointer;}
+  table.bt tbody tr:hover{background:#f7f9ff;}
+  table.bt tbody tr.sel{background:#eaf1ff;box-shadow:inset 4px 0 0 var(--blue);}
+  table.bt tbody tr.sel td.nm{color:var(--blue-d);}
+
+  /* 선택 액션 바 */
+  .selaction{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    background:#eaf1ff;border:1px solid #c9dcff;border-radius:14px;padding:12px 18px;margin:-10px 0 22px;}
+  .selaction .seln{font-size:15px;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;}
+  .selaction .seln b{color:var(--blue-d);}
+  #analyzeBtn{font-size:16px;font-weight:800;color:#fff;background:#0c1a2b;border:0;border-radius:11px;padding:11px 18px;cursor:pointer;white-space:nowrap;}
+  #analyzeBtn:disabled{opacity:.55;cursor:not-allowed;}
+  /* 프롬프트 모달 */
+  .modal{position:fixed;inset:0;background:rgba(8,12,24,.55);display:flex;align-items:center;justify-content:center;z-index:100;padding:30px;}
+  .modal-box{background:#fff;border-radius:18px;max-width:860px;width:100%;max-height:84vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4);}
+  .modal-head{display:flex;align-items:center;gap:10px;padding:15px 20px;border-bottom:1px solid var(--line);font-weight:800;font-size:16px;}
+  .modal-head .sp{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .modal-head button{font-size:14px;font-weight:700;border:0;border-radius:9px;padding:8px 14px;cursor:pointer;}
+  #pmCopy{background:var(--blue);color:#fff;} #pmClose{background:#eef1f6;color:var(--ink);}
+  #pmText{margin:0;padding:18px 22px;overflow:auto;font-family:'Consolas','D2Coding',monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;color:var(--ink);background:#fbfcfe;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>📟 제안 자동화 <span class="b">시연 콕핏</span></h1>
+    <div class="made">이렇게 만들었습니다 · 프롬프트 → git push → 배포 · 비개발자, 반나절</div>
+  </header>
+
+  <div class="search">
+    <input id="kw" placeholder="키워드 (예: AI, 홍보, 데이터, 보안)" value="AI" />
+    <button id="searchBtn">🔍 나라장터 검색</button>
+    <span id="searchMeta"></span>
+  </div>
+  <div class="bidlist" id="bidList"><div class="ph">키워드로 검색하면 — 실제 나라장터 공고가 <b>공고일 최신순</b>으로 여기 뜹니다. 공고를 <b>클릭해 선택</b>해 보세요.</div></div>
+  <div id="selAction" class="selaction" style="display:none">
+    <span class="seln">선택됨 ▸ <b id="selName"></b></span>
+    <button id="analyzeBtn">📋 이 공고로 분석 프롬프트 생성</button>
+  </div>
+
+  <div class="top">
+    <div class="box"><div class="k">입력 RFP (선택한 공고)</div>
+      <div class="rfp" id="rfpName">— 위에서 검색·선택하면 여기 표시됩니다<small>공공입찰=나라장터 실공고 · 민간/내부=과제로 확장</small></div></div>
+    <div class="box prompt"><div class="k">프롬프트 ▸</div>
+      <div class="p">"이 과제를 받아 <span class="y">종류에 맞게</span>(공공입찰·민간·내부) 8섹션 정규화 → <span class="y">제안서 3종 초안</span>. 실적·견적·예산은 <span class="y">검토요망</span>으로 비워."</div></div>
+    <div class="runbox"><button id="runBtn">▶ 실행</button></div>
+  </div>
+
+  <div class="stages" id="stages">
+    <div class="stage" data-i="1"><div class="dot"></div><div class="t">수집</div><div class="s">나라장터 API</div><span class="who">코드</span></div>
+    <div class="stage" data-i="2"><div class="dot"></div><div class="t">정규화</div><div class="s">파싱·8섹션</div><span class="who">코드</span></div>
+    <div class="stage human" data-i="3"><div class="dot"></div><div class="t">판단</div><div class="s">Go/No-Go</div><span class="who">사람</span></div>
+    <div class="stage" data-i="4"><div class="dot"></div><div class="t">생성</div><div class="s">3종 PPTX</div><span class="who">AI</span></div>
+    <div class="stage human" data-i="5"><div class="dot"></div><div class="t">검토</div><div class="s">검토요망</div><span class="who">사람</span></div>
+  </div>
+
+  <div class="grid">
+    <div class="log" id="log"><span class="sys">대기 중 — [▶ 실행]을 누르면 5단계가 실제로 돕니다.</span></div>
+    <div class="result" id="result"><div class="ph">결과가 여기 나타납니다<br/>(제안서 3종 초안 PPTX)</div></div>
+  </div>
+</div>
+
+<div id="promptModal" class="modal" style="display:none">
+  <div class="modal-box">
+    <div class="modal-head"><span class="sp">📋 분석 프롬프트 (실물) — <span id="pmName"></span></span><button id="pmCopy">📋 복사</button><button id="pmClose">✕</button></div>
+    <pre id="pmText"></pre>
+  </div>
+</div>
+
+<script>
+  const stagesEl = document.getElementById('stages');
+  const logEl = document.getElementById('log');
+  const resultEl = document.getElementById('result');
+  const runBtn = document.getElementById('runBtn');
+
+  // ── 키워드 검색 → 공고 목록 ──
+  const kwEl = document.getElementById('kw');
+  const searchBtn = document.getElementById('searchBtn');
+  const bidListEl = document.getElementById('bidList');
+  const searchMetaEl = document.getElementById('searchMeta');
+  const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  function renderBids(d) {
+    searchMetaEl.textContent = `"${d.keyword}" · 최근 ${d.days}일 · ${d.count}건 · 공고일 최신순`;
+    window._bids = d.bids || [];
+    if (!d.bids || !d.bids.length) { bidListEl.innerHTML = '<div class="ph">해당 키워드의 공고가 없습니다.</div>'; return; }
+    bidListEl.innerHTML = '<table class="bt"><thead><tr><th>공고일</th><th>사업명</th><th>공고기관</th><th>사업금액</th><th>마감 (D-day)</th></tr></thead><tbody>'
+      + d.bids.map((b, i) => { const u = /D-DAY|^D-[0-3]$|마감/.test(b.dday); return `<tr data-idx="${i}" onclick="selectBid(${i})"><td class="dt">${esc((b['공고일'] || '').slice(0, 10))}</td><td class="nm">${esc(b['공고명'])}</td><td>${esc(b['기관'])}</td><td>${esc(b['금액'])}</td><td class="${u ? 'urgent' : ''}">${esc(b['마감'])} <b>${esc(b.dday)}</b></td></tr>`; }).join('')
+      + '</tbody></table>';
+  }
+  function selectBid(i) {
+    const b = (window._bids || [])[i]; if (!b) return;
+    bidListEl.querySelectorAll('tbody tr.sel').forEach(r => r.classList.remove('sel'));
+    const row = bidListEl.querySelector(`tr[data-idx="${i}"]`); if (row) row.classList.add('sel');
+    window._selectedBid = b;
+    const rfp = document.getElementById('rfpName');
+    rfp.innerHTML = `${esc(b['공고명'])}<small>${esc(b['기관'])} · ${esc(b['금액'])} · 마감 ${esc(b['마감'])}${b.url ? ` · <a href="${esc(b.url)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">나라장터 상세 ↗</a>` : ''}</small>`;
+    document.getElementById('selName').textContent = b['공고명'] || '';
+    document.getElementById('selAction').style.display = 'flex';
+  }
+  async function doSearch() {
+    const kw = (kwEl.value || '').trim() || 'AI';
+    searchBtn.disabled = true; searchBtn.textContent = '검색 중…'; searchMetaEl.textContent = '';
+    bidListEl.innerHTML = '<div class="ph">나라장터 조회 중… (적응형 기간으로 최근 공고 탐색)</div>';
+    try {
+      const r = await fetch('/search?keyword=' + encodeURIComponent(kw));
+      const d = await r.json();
+      if (d.error) bidListEl.innerHTML = '<div class="ph err">오류: ' + esc(d.error) + '</div>';
+      else renderBids(d);
+    } catch (e) { bidListEl.innerHTML = '<div class="ph err">검색 실패: ' + esc(e.message) + ' — 서버(node server.js)가 떠 있는지 확인</div>'; }
+    searchBtn.disabled = false; searchBtn.textContent = '🔍 나라장터 검색';
+  }
+  searchBtn.onclick = doSearch;
+  kwEl.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+  function setStage(n, state){
+    const s = stagesEl.querySelector(`.stage[data-i="${n}"]`);
+    if(!s) return;
+    s.classList.remove('active','done');
+    if(state) s.classList.add(state);
+  }
+  function resetStages(){ for(let i=1;i<=5;i++) setStage(i, null); }
+  function appendLog(line, cls){
+    const span = document.createElement('span');
+    if(cls) span.className = cls;
+    span.textContent = line + "\n";
+    logEl.appendChild(span); logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  runBtn.onclick = () => {
+    runBtn.disabled = true; runBtn.textContent = '실행 중…';
+    resetStages(); logEl.innerHTML = '';
+    resultEl.className = 'result'; resultEl.innerHTML = '<div class="ph">실행 중…</div>';
+    appendLog('▶ 파이프라인 시작', 'sys');
+
+    const es = new EventSource('/run');
+    let cur = 0;
+    es.addEventListener('line', (e) => {
+      const line = JSON.parse(e.data);
+      appendLog(line, /오류|Error|Traceback/i.test(line) ? 'err' : null);
+      const m = line.match(/\[(\d)\/5\]/);
+      if(m){
+        const n = parseInt(m[1]);
+        if(cur) setStage(cur, 'done');
+        setStage(n, 'active'); cur = n;
+      }
+    });
+    es.addEventListener('done', (e) => {
+      for(let i=1;i<=5;i++) setStage(i, 'done');
+      const { code } = JSON.parse(e.data);
+      es.close(); runBtn.disabled = false; runBtn.textContent = '▶ 다시 실행';
+      resultEl.className = 'result ok';
+      resultEl.innerHTML = `
+        <h3>✅ 제안서 3종 초안 생성</h3>
+        <div class="meta">공공입찰 · 민간 사업 · 내부 기획 — <b>같은 5단계 엔진</b><br/>16:9 · 섹션 색띠 · 발표노트에 <b>[근거]</b>·<b>[검토요망]</b></div>
+        <div><span class="pill">🔴 검토요망</span> 실적·견적·예산·ROI = 사람이 채움</div>
+        <div class="meta" style="color:var(--muted);font-size:14px;">→ draft 폴더에 <b>3 × _초안.pptx</b> (종료코드 ${code})</div>`;
+      appendLog('✓ 완료', 'sys');
+    });
+    es.onerror = () => { es.close(); runBtn.disabled=false; runBtn.textContent='▶ 다시 실행';
+      appendLog('[연결 종료] 서버(node server.js)가 떠 있는지 확인', 'err'); };
+  };
+
+  // ── 선택한 공고 → 실제 분석 프롬프트 생성 (analyzer.py) ──
+  const analyzeBtn = document.getElementById('analyzeBtn');
+  const promptModal = document.getElementById('promptModal');
+  const pmText = document.getElementById('pmText');
+  const pmName = document.getElementById('pmName');
+  const pmCopy = document.getElementById('pmCopy');
+  const pmClose = document.getElementById('pmClose');
+  analyzeBtn.onclick = async () => {
+    const b = window._selectedBid; if (!b) return;
+    const o = analyzeBtn.textContent;
+    analyzeBtn.disabled = true; analyzeBtn.textContent = '생성 중… (공고 첨부 분석, 몇 초)';
+    try {
+      const r = await fetch('/analyze?bidNo=' + encodeURIComponent(b['공고번호']));
+      const d = await r.json();
+      if (d.error) { alert('분석 프롬프트 생성 실패:\n' + d.error); }
+      else { pmName.textContent = b['공고명'] || ''; pmText.textContent = d.prompt; promptModal.style.display = 'flex'; }
+    } catch (e) { alert('실패: ' + e.message + ' — 서버(node server.js) 확인'); }
+    analyzeBtn.disabled = false; analyzeBtn.textContent = o;
+  };
+  pmCopy.onclick = () => {
+    const t = pmText.textContent;
+    const ok = () => { pmCopy.textContent = '✓ 복사됨'; setTimeout(() => pmCopy.textContent = '📋 복사', 1400); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(ok).catch(ok);
+    else { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); ok(); }
+  };
+  pmClose.onclick = () => promptModal.style.display = 'none';
+  promptModal.onclick = (e) => { if (e.target === promptModal) promptModal.style.display = 'none'; };
+</script>
+</body>
+</html>
